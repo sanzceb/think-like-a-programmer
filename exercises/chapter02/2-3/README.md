@@ -39,7 +39,7 @@ This figure is significantly more complex than the other two, so I have annotate
 ### Key Components
 In this section I list the algebraic expressions where n is the number of lines
 
-First Half (4 ≤ n ≤ 4)
+First Half (1 ≤ n ≤ 4)
 1. Leading spaces: n - 1
 2. First hashes: n
 3. Middle spaces: 16 - 4n
