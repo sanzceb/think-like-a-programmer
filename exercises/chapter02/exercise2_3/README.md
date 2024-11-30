@@ -38,24 +38,24 @@ This figure is significantly more complex than the other two, so I have annotate
 
 ### Key Components
 In this section I list the algebraic expressions where n is the number of lines
+
+First Half (4 ≤ n ≤ 4)
 1. Leading spaces: n - 1
 2. First hashes: n
 3. Middle spaces: 16 - 4n
 4. Second hashes: n
 5. Trailing spaces: n - 1
+6. Sum Equation: (n-1) + n + (16-4n) + n + (n-1) = 14
 
-Second Half (where n = lineNum, 5 ≤ n ≤ 8):
+Second Half (5 ≤ n ≤ 8):
 
 1. Leading spaces: 8 - n
 2. First hashes: 9 - n
 3. Middle spaces: 4n - 20
 4. Second hashes: 9 - n
 5. Trailing spaces: 8 - n
-
-Total Width Equations:
-1. First half: (n-1) + n + (16-4n) + n + (n-1) = 14
-2. Second half: (8-n) + (9-n) + (4n-20) + (9-n) + (8-n) = 14
+6. Sum equation: (8-n) + (9-n) + (4n-20) + (9-n) + (8-n) = 14
 
 
 ## Implementation Notes
-Each equation has been implemented using a nested loop so we have two outer loops with five nested loops each
+To implement both equations I have used two fixed main loops that have five nested loops each.
