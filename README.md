@@ -1,6 +1,6 @@
 # Think Like a Programmer - Study Repository
 
-Study repository for exercises and projects from "Think Like a Programmer" by V. Anton Spraul.
+Study repository for exercises and projects from "Think Like a Programmer" by V. Anton Spraul. 
 
 ## Book Information
 - Title: Think Like a Programmer: An Introduction to Creative Problem Solving
@@ -24,10 +24,14 @@ Study repository for exercises and projects from "Think Like a Programmer" by V.
 ## License
 This project is licensed under the MIT License - see the LICENSE file for details.
 
-## Contact
-GitHub: [@SanzCeb](https://github.com/SanzCeb)
-
 ## Setup
 ```cpp
 // Basic C++ compilation example
 g++ filename.cpp -o output
+```
+
+## About me
+
+I started writing C code 12 years ago when I was at college studying Computer Science. I have purchased this book to explore new techniques and breaking bad programming habits. Most of my professional career has been as a corporate consultant using JVM platform-based languages.
+
+GitHub: [@SanzCeb](https://github.com/SanzCeb)
