@@ -8,6 +8,7 @@
 .vscode/
 *.suo
 *.user
+../../.DS_Store
 
 # Build directories
 build/
