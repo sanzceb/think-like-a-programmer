@@ -1,4 +1,4 @@
-# Exercise 2.3: [Input Processing]
+# Exercise 2.3: [Output Patterns]
 
 ## Problem Statement
 Using only single-character output statements that output a hash mark, a space, or an end-of-line, write a program that produces the following shape:

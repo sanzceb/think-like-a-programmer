@@ -1,4 +1,4 @@
-# Exercise 2.3: [Input Processing]
+# Exercise 2.3: [Output Patterns]
 
 ## Problem Statement
 Design your own: Think up your own symmetrical pattern of hash marks,

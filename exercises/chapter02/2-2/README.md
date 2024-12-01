@@ -1,4 +1,4 @@
-# Exercise 2.2: [Input Processing]
+# Exercise 2.2: [Output Patterns]
 
 ## Problem Statement
 Using only single-character output statements that output a hash mark, a
@@ -22,5 +22,5 @@ Line 3:  ######  (6 hashes, 2 spaces)
 Line 4: ######## (8 hashes, 0 spaces)
  ```
 
-## Implementation
+## Implementation Notes
 Each line has exactly 8 characters, and it is something I have overlooked in the previous solution. I made the algebraic expression for the part of the problem that corresponds to the previous exercise easier to understand
