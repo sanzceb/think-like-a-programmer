@@ -8,9 +8,12 @@
 .vscode/
 *.suo
 *.user
-../../.DS_Store
+.DS_Store
 
 # Build directories
 build/
 debug/
 release/
+
+# Custom Local Folders
+exercises/*/examples
