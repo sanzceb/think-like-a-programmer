@@ -12,9 +12,9 @@ Study repository for exercises and projects from "Think Like a Programmer" by V.
 - `/exercises`: Solutions organized by chapter
 
 ## Progress
-- [ ] Chapter 1: Problem-Solving Strategies
-- [ ] Chapter 2: Pure Puzzle
-- [ ] Chapter 3: Solving Problems with Arrays
+- [ ] Chapter 1: Problem-Solving Strategies (0 %)
+- [x] Chapter 2: Pure Puzzle
+- [ ] Chapter 3: Solving Problems with Arrays (0 %)
 - [ ] Chapter 4: Solving Problems with Pointers and Dynamic Memory
 - [ ] Chapter 5: Solving Problems with Classes
 - [ ] Chapter 6: Solving Problems with Recursion
