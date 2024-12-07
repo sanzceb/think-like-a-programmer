@@ -1,4 +1,4 @@
-# Exercise 3.3: [Sorting Checker]
+# Exercise 3.3: [Array Sort Checker]
 
 ## Problem Statement
 Write a `bool` function that is passed an array and the number of elements  

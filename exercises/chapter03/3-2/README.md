@@ -1,4 +1,4 @@
-# Exercise 3.2: [Highest Median Sales]
+# Exercise 3.2: [Median Sales Finder]
 
 ## Problem Statement
 Rewrite the code that finds the agent with the best monthly sales average so  
