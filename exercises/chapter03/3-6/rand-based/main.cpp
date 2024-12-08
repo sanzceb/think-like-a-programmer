@@ -3,7 +3,7 @@
 using std::cout;
 using std::cin;
 
-bool arrayHasTarget(char target, char charArray[], int ARRAY_SIZE) {
+bool arrayHasTarget(char target, const char charArray[], int ARRAY_SIZE) {
     for (int i = 0; i < ARRAY_SIZE; i++) {
         if (charArray[i] == target) {
             return true;
