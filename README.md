@@ -25,9 +25,9 @@ Study repository for exercises and projects from "Think Like a Programmer" by V.
     - [x] 3.8 Grade Quartile Analyzer
     - [x] 3.9 Sales History Analyzer
 - [ ] Chapter 4: Solving Problems with Pointers and Dynamic Memory (30%)
-    - 4.1 [x] Design your Own: Sales History Analyzer
-    - 4.2 [x] Function substring
-    - 4.3 [x] Text replacer
+    - [x] 4.1 Design your Own: Sales History Analyzer
+    - [x] 4.2 Function substring
+    - [x] 4.3 Text replacer
 - [ ] Chapter 5: Solving Problems with Classes
 - [ ] Chapter 6: Solving Problems with Recursion
 - [ ] Chapter 7: Solving Problems with Code Reuse
