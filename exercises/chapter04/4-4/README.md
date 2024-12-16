@@ -88,4 +88,4 @@ exercise after a difficult one. The next group of exercises will be about linked
 lists.
 
 <!--Links -->
-[4-3]:(https://github.com/SanzCeb/think-like-a-programmer/tree/main/exercises/chapter04/4-2)
+[4-3]:(https://github.com/SanzCeb/think-like-a-programmer/tree/main/exercises/chapter04/4-3)
