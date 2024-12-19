@@ -36,6 +36,7 @@ V. Anton Spraul.
   - [x] 4.5 Remove Student Record
   - [x] 4.6 Linked-List String
   - [x] 4.7 Linked-List concatenate
+  - [x] 4.8 Linked-List remove Characters
 - [ ] Chapter 5: Solving Problems with Classes
 - [ ] Chapter 6: Solving Problems with Recursion
 - [ ] Chapter 7: Solving Problems with Code Reuse
