@@ -118,4 +118,4 @@ solution.
 <!--Links UPDATE -->
 [ex4-6]:(https://github.com/SanzCeb/think-like-a-programmer/tree/main/exercises/chapter04/4-6)
 [ex4-6:append]:(https://github.com/SanzCeb/think-like-a-programmer/tree/main/exercises/chapter04/4-6#linked-lists-vs-arrays)
-[ex4-6sol]:(https://github.com/SanzCeb/think-like-a-programmer/blob/25272a0a9ad54ad7704c6278a7c2326123adfda6/exercises/chapter04/4-6/main.cpp#L26)
+[ex4-6sol]:(https://github.com/SanzCeb/think-like-a-programmer/tree/main/exercises/chapter04/4-6#solution-overview)
