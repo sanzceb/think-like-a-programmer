@@ -31,16 +31,16 @@ Here is my solution:
 typedef char * arrayString;
 
 arrayString substring(arrayString str, int initPos, int subStrLen) {
-	arrayString subStr = new char[subStrLen + 1];
+ arrayString subStr = new char[subStrLen + 1];
 
-	//Initial position starts from 1
-	for (int i = 0; i < subStrLen; i++) {
+ //Initial position starts from 1
+ for (int i = 0; i < subStrLen; i++) {
         subStr[i] = str[initPos + i - 1];
-	}
+ }
 
-	subStr[subStrLen] = 0;
+ subStr[subStrLen] = 0;
 
-	return subStr;
+ return subStr;
 }
 ```
 

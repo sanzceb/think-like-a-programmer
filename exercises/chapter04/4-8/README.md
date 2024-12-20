@@ -9,8 +9,10 @@ at the fifth character in the string. Make sure the removed nodes are properly
 deallocated.
 
 ## Data structures & Definitions
+
 For the details about the data structures used, refer to the first part of the
 Linked-List series [here][ex4-6]
+
 ```cpp
 void removeChars(charCollection& s1, int pos, int len);
 ```
@@ -30,27 +32,29 @@ s1: 't' -> 'e' -> 's' -> 'd' -> NULL
 ## Solution Overview
 
 The solution was broken down into two steps:
+
 1. Traverse the list to the node prior to the first node that will be deleted.
 This problem was solved when we implemented `characterAt` in
 [exercise 6][ex4-6:charAt]
+
 2. Traverse the section that starts at `pos` and finishes at `pos + len`
 deleting `next` node at each step.
 
 ```cpp
 void removeChars(charCollection& s1, int pos, int len) {
-	if (s1 == NULL) return;
-	// SEARCH for node prior to pos
+ if (s1 == NULL) return;
+ // SEARCH for node prior to pos
     listNode * prevPtr = s1;
     while (prevPtr != NULL && pos-- > 1) { //[1]
         prevPtr = prevPtr->next;
     }
-	//if(position not found)
-	if (prevPtr == NULL) return;
-	// remove each node between pos and len
-	while (prevPtr->next != NULL && len-- > 0) { //[2]
+ //if(position not found)
+ if (prevPtr == NULL) return;
+ // remove each node between pos and len
+ while (prevPtr->next != NULL && len-- > 0) { //[2]
         listNode * newNext = prevPtr->next->next;
-		delete prevPtr->next;
-		prevPtr->next = newNext;
+  delete prevPtr->next;
+  prevPtr->next = newNext;
     }
 }
 ```
@@ -63,6 +67,7 @@ removed a `len` number of nodes or if the end of the list is reached. What
 happens earlier.
 
 ## Final Thoughts
+
 This exercise closes the series of Linked-List exercises. The solution emerged
 without much difficulty, because there was no step that we have not implemented
 in some way in previous exercises. It is quite exciting feeling the progress I

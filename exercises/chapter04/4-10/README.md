@@ -99,5 +99,5 @@ of the same good learning experience in the upcoming chapter: **Classes**. I
 can't wait to solve those problems too!.
 
 <!--Links-->
-[4-9]:(../4-9/main.cpp)
-[dec-to-bin]:(../../chapter02/2-6/dec-to-bin/main.cpp)
+[4-9]:(https://github.com/SanzCeb/think-like-a-programmer/tree/main/exercises/chapter02/exercises/chapter04/4-9)
+[dec-to-bin]:(https://github.com/SanzCeb/think-like-a-programmer/tree/main/exercises/chapter02/exercises/chapter02/2-6/dec-to-bin/main.cpp#L18)

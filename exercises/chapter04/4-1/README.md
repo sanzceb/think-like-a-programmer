@@ -1,11 +1,13 @@
 # Exercise 4.1[Design Your Own: Sales History Analyzer]
 
 ## Problem Statement
+
 Design your own: Take a problem that you already know how to solve using
  an array but that is limited by the size of the array. Rewrite the code
  to remove that limitation using a dynamically allocated array.
 
-### Problem taken:
+### Problem taken
+
 Consider this modification of the sales array: Because salespeople come
  and go throughout the year, we are now marking months prior to a sales
  agent’s hiring, or after a sales agent’s last month, with a –1. Rewrite
@@ -20,8 +22,8 @@ I have chosen the last version of the sales agent, because it is a
  array.However, this my first program with pointers in a really long
  time, so let's see how it goes!.
 
-
 ## Data Structures
+
 I have decided to create an agent struct to encapsulate the management
  of the sales array. Now instead of using an fixed array of 12 months,
  we will use a dynamic array of integers.
@@ -41,6 +43,7 @@ With this defined `struct`, we are working with a vector or monthly sales.
  finally do the implementation.
 
 ## Solution
+
 Before working on the actual problem, I ensured that I was comfortable with
  the pointers fundamentals before starting the actual problem, so I created
  this sub problem for me.
@@ -66,6 +69,7 @@ void addNewSales(agentStruct * & agent, int monthlySale) {
     agent->numMonths++;
 }
 ```
+
 The implementation of the final solution was not too difficult, since it was a
 matter to redesign the array operations to leverage usage of dynamic memory.
 
@@ -101,7 +105,7 @@ Here I included the old solution so that you can compare them and notice the
 differences:
 
 ```cpp
-	// Old implementation
+ // Old implementation
     for (int agent = 0; agent < NUM_AGENTS; agent++) {
 
         // Sorting first will put all the -1 at the beginning
