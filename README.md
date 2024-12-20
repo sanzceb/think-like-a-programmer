@@ -28,7 +28,7 @@ V. Anton Spraul.
   - [x] 3.7 Mode Calculator
   - [x] 3.8 Grade Quartile Analyzer
   - [x] 3.9 Sales History Analyzer
-- [ ] Chapter 4: Solving Problems with Pointers and Dynamic Memory (90%)
+- [x] Chapter 4: Solving Problems with Pointers and Dynamic Memory (100%)
   - [x] 4.1 Design your Own: Sales History Analyzer
   - [x] 4.2 Function substring
   - [x] 4.3 Text replacer
@@ -37,7 +37,8 @@ V. Anton Spraul.
   - [x] 4.6 Linked-List String
   - [x] 4.7 Linked-List concatenate
   - [x] 4.8 Linked-List remove Characters
-  - [x] 4.9 Digits Linked-List 
+  - [x] 4.9 Digits Linked-List
+  - [x] 4.10 Sum Linked Lists
 - [ ] Chapter 5: Solving Problems with Classes
 - [ ] Chapter 6: Solving Problems with Recursion
 - [ ] Chapter 7: Solving Problems with Code Reuse
