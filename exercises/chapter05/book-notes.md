@@ -116,3 +116,37 @@ to distinguish it from the constructors. For example:
 ```cpp
 studentCollection::~studentCollection();
 ```
+
+## Operator overloading
+
+Operator overloading is a feature of C++ that allows us to change the default
+behaviour of built-in operators. The definition of the method that overloads
+the operator must be defined in the public section. The book overloads the
+assignment operator as an example:
+
+```cpp
+studentCollection& operator=(const studentCollecion& rhs);
+```
+* `rhs` stands for right-hand-side and it is a name of common use in operator
+overloads.
+* The return type must be a direction, because C++ allows *assignment chaining*
+like `s3 = s2 = s1;` so the type of the return value must be equal to the type
+of the parameter.
+
+## Copy constructor
+
+A *copy constructor* is a constructor that takes an object of the same type:
+
+```cpp
+studentCollection(const studentCollection &original);
+```
+
+Copy constructors can be invoked to create object duplicates. Another important
+issue about copy constructors is that they are used implicitely whenever an
+object is passed as a value parameter. When we work with classes, it is better
+to work with shared references (such as `const studentCollection &original`) to
+avoid unnecessary processing work unless the function that takes the object
+needs to modify a copy of it. This is because if, for example, an object
+contains a linked-list of thousands of nodes created through dynamic memory,
+these nodes are copied if the object is passed as value, and this ultimately
+means a lot of unnecessary work being done.
