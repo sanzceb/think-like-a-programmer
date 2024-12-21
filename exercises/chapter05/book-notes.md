@@ -102,5 +102,17 @@ string studentRecord::letterGrade() { //[7]
 to perform with the data. They are also called *helper* or *auxiliary* methods.
 
 [7] The reason for this method to get the grade letter on the fly instead of
-storing it is avoiding *data redundancy*, since the grade letter does not tell us
-anything we cannot get from the `_grade` itself
+storing it is avoiding *data redundancy*, since the grade letter does not tell
+us anything we cannot get from the `_grade` itself
+
+## Destructor
+
+The *destructor* is a special method that is called when an object goes out of
+scope. It is needed when a class creates dynamic data with `new`. Otherwise, we
+would face memory leaks. The destructor must go in the public section, and its
+name must correspond with the name of the class with a tilde before the name
+to distinguish it from the constructors. For example:
+
+```cpp
+studentCollection::~studentCollection();
+```
