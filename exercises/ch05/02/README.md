@@ -109,4 +109,4 @@ years elapsed since 1900. This means that in order to get the current year, whic
 must add 1900.
 
 <!-- Links-->
-[link]:(https://github.com/SanzCeb/think-like-a-programmer/blob/main/exercises/chapter05/5-1/README.md#class-definition)
+[link]:(https://github.com/SanzCeb/think-like-a-programmer/blob/main/exercises/ch05/01/README.md#class-definition)

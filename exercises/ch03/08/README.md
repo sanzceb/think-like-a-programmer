@@ -50,7 +50,7 @@ Since these values are in sequence, we can work with a scalar value that starts 
  As I advanced during the introduction, I sensed that this part was going to be difficult, so my plan was created based on isolating from that part of the logic and then deal with it at the end.
 
 
-The first problem is how to sort the students so that we have the students with the highest grades at the beginning and the students with the lowest grades at the end. This is achievied by sorting the array of students through `qsort`, technique which is taught in the book and that if we did the exercise [3.1](https://github.com/SanzCeb/think-like-a-programmer/blob/main/exercises/chapter03/3-1/), we should already have stored in a program. I did so to solve this part I had only to reuse that program and adapt it a bit and voilá:
+The first problem is how to sort the students so that we have the students with the highest grades at the beginning and the students with the lowest grades at the end. This is achievied by sorting the array of students through `qsort`, technique which is taught in the book and that if we did the exercise [3.1](https://github.com/SanzCeb/think-like-a-programmer/blob/main/exercises/ch03/01/), we should already have stored in a program. I did so to solve this part I had only to reuse that program and adapt it a bit and voilá:
 
 ```cpp
 int gradeCompar(const void * voidA, const void * voidB) {

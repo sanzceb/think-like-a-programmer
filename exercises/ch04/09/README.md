@@ -108,4 +108,4 @@ learned in previous chapters to make a non-trivial problem at a first glance a
 problem that ended up being quite simple to solve.
 
 <!--Refs & Links-->
-[strll]:(https://github.com/SanzCeb/think-like-a-programmer/blob/main/exercises/chapter04/4-6/README.md#data-structures--definitions)
+[strll]:(https://github.com/SanzCeb/think-like-a-programmer/blob/main/exercises/ch04/06/README.md#data-structures--definitions)

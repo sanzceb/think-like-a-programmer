@@ -42,4 +42,4 @@ As an extra I have added a validation support method that is a *gatekeeper* of
 the model year set method which establishes the oldest model year, the year in
 which Karl Benz commercialized its *Benz Patent-Motorwagen*.
 
-[ref1]:(https://github.com/SanzCeb/think-like-a-programmer/blob/main/exercises/chapter05/book-notes.md#the-basic-class-framework)
+[ref1]:(https://github.com/SanzCeb/think-like-a-programmer/blob/main/exercises/ch05/book-notes.md#the-basic-class-framework)

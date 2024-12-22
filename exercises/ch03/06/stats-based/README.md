@@ -12,7 +12,7 @@ if the first element is S, no other element can be S.
 When I was about to give up with the random problem and move on to the next  
  exercise, I had a complete creative moment. Is not the plain-text something  
  that is unknown for the program and can be considered random? Wait! I have  
- written a [program](https://github.com/SanzCeb/think-like-a-programmer/tree/main/exercises/chapter02/2-9)
+ written a [program](https://github.com/SanzCeb/think-like-a-programmer/tree/main/exercises/ch02/2-9)
                      that performs text analysis. I can use those statistics  
  as a seed! I felt that I had to give it a try before moving on to the  
  next exercise, so I started "fresh" on the problem again. Here was my new plan:

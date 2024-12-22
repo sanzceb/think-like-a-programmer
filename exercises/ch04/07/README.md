@@ -116,6 +116,6 @@ spotting the edge cases in advance and of noticing the flaws of my first
 solution.
 
 <!--Links UPDATE -->
-[ex4-6]:(https://github.com/SanzCeb/think-like-a-programmer/tree/main/exercises/chapter04/4-6)
-[ex4-6:append]:(https://github.com/SanzCeb/think-like-a-programmer/tree/main/exercises/chapter04/4-6#linked-lists-vs-arrays)
-[ex4-6sol]:(https://github.com/SanzCeb/think-like-a-programmer/tree/main/exercises/chapter04/4-6#solution-overview)
+[ex4-6]:(https://github.com/SanzCeb/think-like-a-programmer/tree/main/exercises/ch04/4-6)
+[ex4-6:append]:(https://github.com/SanzCeb/think-like-a-programmer/tree/main/exercises/ch04/4-6#linked-lists-vs-arrays)
+[ex4-6sol]:(https://github.com/SanzCeb/think-like-a-programmer/tree/main/exercises/ch04/4-6#solution-overview)

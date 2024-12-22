@@ -43,7 +43,7 @@ void charCollection::remove(int pos, int len) {
 
 The logic is the same as the logic implemented in the function of the
 [previous chapter][4-8]. The only difference is that now we work with
-the linked list data member `_listHead` instead of the function parameter `s1`.
+the data member `_listHead` instead of the function parameter `s1`.
 We have now encapsulated the implementation and reduced the number of required
 parameters. This change has also consequently simplified the test case. We do
 not need anymore the helper method to cleanup the memory. Now that cleanup

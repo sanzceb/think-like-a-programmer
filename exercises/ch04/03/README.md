@@ -99,4 +99,4 @@ references, etc) I have been capable of writing the program with confidence. I
 barely spent a fraction of the time debugging.
 
 <!-- Links -->
-[4-2]: (https://github.com/SanzCeb/think-like-a-programmer/tree/main/exercises/chapter04/4-2)
+[4-2]: (https://github.com/SanzCeb/think-like-a-programmer/tree/main/exercises/ch04/4-2)

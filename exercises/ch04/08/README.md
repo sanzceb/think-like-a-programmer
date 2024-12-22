@@ -74,5 +74,5 @@ in some way in previous exercises. It is quite exciting feeling the progress I
 have made since the start of the book.
 
 <!--LINKS-->
-[ex4-6]:(https://github.com/SanzCeb/think-like-a-programmer/tree/main/exercises/chapter04/4-6)
-[ex4-6:charAt]:(https://github.com/SanzCeb/think-like-a-programmer/tree/main/exercises/chapter04/4-6#solution-overview)
+[ex4-6]:(https://github.com/SanzCeb/think-like-a-programmer/tree/main/exercises/ch04/4-6)
+[ex4-6:charAt]:(https://github.com/SanzCeb/think-like-a-programmer/tree/main/exercises/ch04/4-6#solution-overview)
