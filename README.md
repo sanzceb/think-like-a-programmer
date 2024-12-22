@@ -44,6 +44,7 @@ V. Anton Spraul.
   - [x] 5.2 Automobile description and age
   - [x] 5.3 Variable-Length String
   - [x] 5.4 Variable-Length String: Operator[]
+  - [x] 5.5 Variable-Length String: remove
 - [ ] Chapter 6: Solving Problems with Recursion
 - [ ] Chapter 7: Solving Problems with Code Reuse
 - [ ] Chapter 8: Thinking Like a Programmer
