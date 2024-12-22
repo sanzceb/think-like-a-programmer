@@ -7,9 +7,12 @@ public:
     charCollection();
     charCollection(const charCollection& original);
     ~charCollection();
+    charCollection& operator=(const charCollection& rhs);
     char operator[](int pos);
     char characterAt(int pos);
-    void append(char c); 
+    void append(char c);
+    void concatenate(const charCollection& s2);
+    void output();    
 private:
     struct charNode {
         char character;
@@ -29,6 +32,14 @@ charCollection::charCollection() {
 
 charCollection::~charCollection() {
     deleteList(_listHead);
+}
+
+charCollection &charCollection::operator=(const charCollection& rhs) {
+    if (this != &rhs) {
+        deleteList(_listHead);
+        _listHead = copiedList(rhs._listHead);
+    }
+    return *this;
 }
 
 char charCollection::operator[](int pos) {
@@ -68,6 +79,31 @@ void charCollection::append(char c) {
     }
 }
 
+void charCollection::concatenate(const charCollection& s2) {
+    if (s2._listHead == NULL) return;
+    // It is more efficient to reach the last node first
+    charNode * lastNodePtr = NULL;
+    charNode * loopPtr = _listHead;
+    while (loopPtr != NULL) {
+        lastNodePtr = loopPtr;
+        loopPtr = loopPtr->next;
+    }
+    loopPtr = s2._listHead;
+    do { // TRAVERSE s2 and COPY each node
+        append(loopPtr->character);
+        loopPtr = loopPtr->next;
+        lastNodePtr = lastNodePtr->next;
+    } while(loopPtr != NULL);
+}
+
+void charCollection::output() {
+    charNode *loopPtr = _listHead;
+    while (loopPtr != NULL) {
+        cout << loopPtr->character;
+        loopPtr = loopPtr->next;
+    }
+}
+
 void charCollection::deleteList(charList &listPtr) {
     while (listPtr != NULL) {
         // keep the list always linked
@@ -75,6 +111,25 @@ void charCollection::deleteList(charList &listPtr) {
         delete listPtr;
         listPtr = tmpPtr;
     }
+}
+
+charCollection::charList charCollection::copiedList(const charList original) {
+    if (original == NULL) return NULL;
+    charList newList = new charNode;
+    newList->character = original->character;
+    
+    // Traverse and copy
+    charNode * loopPtr = original->next;
+    charNode * lastPtr = newList;
+    while (loopPtr != NULL) {
+        lastPtr->next = new charNode;
+        lastPtr = lastPtr->next;
+        lastPtr->character = loopPtr->character;
+        loopPtr = loopPtr->next;
+    }
+    // It avoids storing bad references
+    lastPtr->next = NULL;
+    return newList;
 }
 
 int main() {
