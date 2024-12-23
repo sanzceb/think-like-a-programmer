@@ -39,7 +39,7 @@ V. Anton Spraul.
   - [x] 4.8 Linked-List remove Characters
   - [x] 4.9 Digits Linked-List
   - [x] 4.10 Sum Linked Lists
-- [ ] Chapter 5: Solving Problems with Classes (87.5%)
+- [x] Chapter 5: Solving Problems with Classes (100%)
   - [x] 5.1 Basic Class Automobile
   - [x] 5.2 Automobile description and age
   - [x] 5.3 Variable-Length String
@@ -47,6 +47,7 @@ V. Anton Spraul.
   - [x] 5.5 Variable-Length String: remove
   - [x] 5.6 Variable-Length String: Refactor
   - [x] 5.7 Student Records: add and average
+  - [x] 5.8 Student Records: Records within Range
 - [ ] Chapter 6: Solving Problems with Recursion
 - [ ] Chapter 7: Solving Problems with Code Reuse
 - [ ] Chapter 8: Thinking Like a Programmer
