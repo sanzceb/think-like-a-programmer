@@ -60,11 +60,6 @@ V. Anton Spraul.
 - [ ] Chapter 7: Solving Problems with Code Reuse
 - [ ] Chapter 8: Thinking Like a Programmer
 
-## License
-
-This project is licensed under the MIT License - see the LICENSE file for
-details.
-
 ## About me
 
 I started writing C code 12 years ago when I was at college studying Computer
