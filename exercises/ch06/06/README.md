@@ -1,8 +1,8 @@
-# Exercise 6.6 Recursive Parity Checker Linked List
+# Exercise 6.6 Recursive Parity Checker using Linked List
 
 ## Problem Statement
 
-Solve exercise [6-1][6-1] again, using a linked list instead of an array.
+Solve exercise [6-2][6-2] again, using a linked list instead of an array.
 
 ## Analysis
 
@@ -46,4 +46,4 @@ Otherwise ...
     rest of the list is **odd**.
 
 <!-- Links -->
-[6-1]:(http://github.com/SanzCeb/think-like-a-programmer/tree/main/exercises/chapter06/01)
+[6-2]:(http://github.com/SanzCeb/think-like-a-programmer/tree/main/exercises/chapter06/02)

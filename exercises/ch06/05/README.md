@@ -1,4 +1,4 @@
-# Exercise 6.5 Recursive Positive Sum with Linked-List
+# Exercise 6.5 Recursive Positive Sum using Linked-List
 
 ## Problem Statement
 

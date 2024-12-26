@@ -53,7 +53,8 @@ V. Anton Spraul.
   - [x] 6.2 Recursive Parity Checker
   - [x] 6.3 Recursive target counter
   - [x] 6.4 Recursive Array Sorted
-  - [x] 6.5 Recursive Positive Sum with Linked-List
+  - [x] 6.5 Recursive Positive Sum using Linked-List
+  - [x] 6.6 Recursive Parity Checker using Linked List
 - [ ] Chapter 7: Solving Problems with Code Reuse
 - [ ] Chapter 8: Thinking Like a Programmer
 
