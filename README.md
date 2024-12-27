@@ -48,16 +48,17 @@ V. Anton Spraul.
   - [x] 5.6 Variable-Length String: Refactor
   - [x] 5.7 Student Records: add and average
   - [x] 5.8 Student Records: Records within Range
-- [ ] Chapter 6: Solving Problems with Recursion (75%)
-  - [x] 6.1 Recursive Positive Sum
-  - [x] 6.2 Recursive Parity Checker
-  - [x] 6.3 Recursive target counter
-  - [x] 6.4 Recursive Array Sorted
-  - [x] 6.5 Recursive Positive Sum using Linked-List
-  - [x] 6.6 Recursive Parity Checker using Linked List
-  - [x] 6.7 Recursive Target Count using Linked List
-  - [x] 6.8 Recursive remove characters using Linked List
-  - [x] 6.9 Recursive Heap Checker
+- [ ] Chapter 6: Solving Problems with Recursion (83.33%)
+  - [x] 6.1 Positive Sum
+  - [x] 6.2 Parity Checker
+  - [x] 6.3 target counter
+  - [x] 6.4 Array Sorted
+  - [x] 6.5 Positive Sum using Linked-List
+  - [x] 6.6 Parity Checker using Linked List
+  - [x] 6.7 Target Count using Linked List
+  - [x] 6.8 Remove characters using Linked List
+  - [x] 6.9 Heap Checker
+  - [x] 6.10 Binary Tree Checker
 - [ ] Chapter 7: Solving Problems with Code Reuse
 - [ ] Chapter 8: Thinking Like a Programmer
 
