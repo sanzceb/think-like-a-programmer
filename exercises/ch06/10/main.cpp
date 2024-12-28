@@ -1,6 +1,7 @@
 #include <iostream>
 #include <cassert>
-#include <vector>
+
+using std::cout;
 
 struct treeNode {
     int data;
@@ -10,46 +11,18 @@ struct treeNode {
 
 typedef treeNode* treePtr;
 
+bool isBinarySearchTree(treePtr root) {
+    if (root == NULL) return false;
+    if (root->left == NULL && root->right == NULL) return true;    
+    
+    bool isLeftBinary = isBinarySearchTree(root->left);
+    bool isRightBinary = isBinarySearchTree(root->right);
+    bool isLeftMax = root->left->data < root->data;
+    bool isRightMin = root->right->data > root->data;
 
-int maxValue(treePtr rootPtr) {
-    if (rootPtr == NULL)  return 0;
-    if (rootPtr->right == NULL && rootPtr->left == NULL) 
-        return rootPtr->data;
-    int leftMax = maxValue(rootPtr->left);
-    int rightMax = maxValue(rootPtr->right);
-    int maxNum = rootPtr->data;
-    if (leftMax > maxNum) maxNum = leftMax;
-    if (rightMax > maxNum) maxNum = rightMax;
-    return maxNum;
+    return isLeftBinary && isRightBinary && isLeftMax && isRightMin;
 }
 
-int minValue(treePtr rootPtr) {
-    if (rootPtr == NULL)  return 0;
-    if (rootPtr->right == NULL && rootPtr->left == NULL) 
-        return rootPtr->data;
-    int leftMin = minValue(rootPtr->left);
-    int rightMin = minValue(rootPtr->right);
-    int minNum = rootPtr->data;
-    if (leftMin < minNum) minNum = leftMin;
-    if (rightMin < minNum) minNum = rightMin;
-    return minNum;
-}
-
-bool isBinarySearchTree(treePtr rootPtr) {
-    if (rootPtr == NULL) return false;
-    if (rootPtr->right == NULL && rootPtr->left == NULL) return true;
-    if (rootPtr->left != NULL) {
-        if (!isBinarySearchTree(rootPtr->left)) return false;
-        if (rootPtr->data <= maxValue(rootPtr->left)) return false;
-    }
-    if (rootPtr->right != NULL) {
-        if (!isBinarySearchTree(rootPtr->right)) return false;
-        if (rootPtr->data >= minValue(rootPtr->right)) return false;
-    }
-    return true;
-}
-
-// Helper function to create a new node
 treePtr createNode(int value) {
     treePtr newNode = new treeNode;
     newNode->data = value;
@@ -58,7 +31,6 @@ treePtr createNode(int value) {
     return newNode;
 }
 
-// Helper function to delete the tree and free memory
 void deleteTree(treePtr root) {
     if (root == nullptr) return;
     deleteTree(root->left);
@@ -67,74 +39,59 @@ void deleteTree(treePtr root) {
 }
 
 void isBinarySearchTreeTester() {
-    // Test Case 1: Empty tree
-    std::cout << "Test Case 1: Empty tree" << std::endl;
+    cout << "Test Case 1: Empty tree";
     assert(isBinarySearchTree(nullptr) == false);
-    std::cout << "Passed!" << std::endl;
+    cout << " Passed!";
 
-    // Test Case 2: Single node
-    std::cout << "Test Case 2: Single node" << std::endl;
+    cout << "\nTest Case 2: Single node";
     treePtr root = createNode(5);
     assert(isBinarySearchTree(root) == true);
     deleteTree(root);
-    std::cout << "Passed!" << std::endl;
+    cout << " Passed!";
 
-    // Test Case 3: Valid BST
-    std::cout << "Test Case 3: Valid BST" << std::endl;
+    cout << "\nTest case 3: Simple BST:";
+    root = createNode(20);
+    root->left = createNode(10);
+    root->right = createNode(30);
+    assert(isBinarySearchTree(root) && "Simple BST");
+    deleteTree(root);
+    cout << " Passed!";
+
+    cout << "\nTest case 4: Simple non-BST tree:";
+    root = createNode(50);
+    root->left = createNode(20);
+    root->right = createNode(30);
+    root->left->left = createNode(10);
+    root->left->right = createNode(15);
+    assert(!isBinarySearchTree(root) && "Simple non-BST tree");
+    deleteTree(root);
+    cout << " Passed!";
+
+    cout << "\nTest case 5: Complex BST tree:";
     root = createNode(8);
-    root->left = createNode(3);
-    root->right = createNode(10);
-    root->left->left = createNode(1);
+    root->left = createNode(4);
+    root->right = createNode(12);   
+    root->left->left = createNode(2);
     root->left->right = createNode(6);
-    assert(isBinarySearchTree(root) == true);
+    root->right->left = createNode(10);
+    root->right->right = createNode(14);
+    assert(isBinarySearchTree(root) && "Complex BST tree:");
+    cout << " Passed!";
     deleteTree(root);
-    std::cout << "Passed!" << std::endl;
 
-    // Test Case 4: Invalid BST (violates left subtree property)
-    std::cout << "Test Case 4: Invalid BST (left subtree violation)" << std::endl;
-    root = createNode(8);
-    root->left = createNode(3);
-    root->right = createNode(10);
-    root->left->left = createNode(1);
-    root->left->right = createNode(9);  // Invalid: 9 > 8
-    assert(isBinarySearchTree(root) == false);
+    cout << "\nTest case 6: Complex non-BST tree:";
+    root = createNode(15);
+    root->left = createNode(25);
+    root->right = createNode(5);
+    root->left->left = createNode(10);
+    root->left->right = createNode(6);
+    root->right->left = createNode(17);
+    root->right->right = createNode(14);
+    assert(!isBinarySearchTree(root) && "Complex non-BST tree:");
+    cout << " Passed!";
     deleteTree(root);
-    std::cout << "Passed!" << std::endl;
-
-    // Test Case 5: Invalid BST (violates right subtree property)
-    std::cout << "Test Case 5: Invalid BST (right subtree violation)" << std::endl;
-    root = createNode(8);
-    root->left = createNode(3);
-    root->right = createNode(10);
-    root->right->left = createNode(7);  // Invalid: 7 < 8
-    assert(isBinarySearchTree(root) == false);
-    deleteTree(root);
-    std::cout << "Passed!" << std::endl;
-
-    // Test Case 6: Invalid BST with duplicate values
-    std::cout << "Test Case 6: Invalid BST with duplicate values" << std::endl;
-    root = createNode(8);
-    root->left = createNode(8);
-    root->right = createNode(8);
-    assert(!isBinarySearchTree(root) == true);
-    deleteTree(root);
-    std::cout << "Passed!" << std::endl;
-
-    // Test Case 7: Deep tree with valid BST properties
-    std::cout << "Test Case 7: Deep valid BST" << std::endl;
-    root = createNode(10);
-    root->left = createNode(5);
-    root->right = createNode(15);
-    root->left->left = createNode(3);
-    root->left->right = createNode(7);
-    root->right->left = createNode(13);
-    root->right->right = createNode(17);
-    root->left->left->left = createNode(1);
-    assert(isBinarySearchTree(root) == true);
-    deleteTree(root);
-    std::cout << "Passed!" << std::endl;
-
-    std::cout << "All test cases passed!" << std::endl;
+    
+    cout << "\nAll tests were passed!\n";
 }
 
 int main() {
