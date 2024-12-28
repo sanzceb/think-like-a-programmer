@@ -11,19 +11,17 @@ struct treeNode {
 
 typedef treeNode* treePtr;
 
-bool isAHeap(treePtr rootPtr) {
-    if (rootPtr == NULL) return false;
-    if (rootPtr->left == NULL && rootPtr->right == NULL)
-        return true;
-    if (rootPtr->left != NULL) {
-        if (!isAHeap(rootPtr->left)) return false;
-        if (rootPtr->data <= rootPtr->left->data) return false;
-    }
-    if (rootPtr->right != NULL) {
-        if (!isAHeap(rootPtr->right)) return false;
-        if (rootPtr->data <= rootPtr->right->data) return false;
-    }
-    return true;
+bool isAHeap(treePtr root) {
+    if (root == NULL) return false;
+    if (root->left == NULL && root->right == NULL)
+        return true;    
+    
+    bool isLeftAHeap = isAHeap(root->left);
+    bool isRightAHeap = isAHeap(root->right);
+    bool isLeftMax = (root->data > root->left->data);
+    bool isRightMax = (root->data > root->right->data);
+    
+    return isLeftAHeap && isRightAHeap && isLeftMax && isRightMax;
 }
 
 // Helper function to create a tree node
@@ -75,15 +73,14 @@ void testIsAHeap() {
     // Test Case 4: Invalid tree - node not greater than all in its subtree
     {
         treePtr root = createNode(30);
-        root->left = createNode(40);  // Violates property: 30 is not greater than 40 in its left subtree
+        root->left = createNode(40);  // 40 > 30
         root->right = createNode(20);
-        root->left->left = createNode(10);
         assert(!isAHeap(root) && 
         "Should detect violation of greater-than-subtree property");
         deleteTree(root);
     }
 
-    // Test Case 5: Valid multi-level tree with multiple branches
+    // // Test Case 5: Valid multi-level tree with multiple branches
     {
         treePtr root = createNode(100);
         root->left = createNode(50);
@@ -91,12 +88,13 @@ void testIsAHeap() {
         root->left->left = createNode(20);
         root->left->right = createNode(30);
         root->right->left = createNode(40);
+        root->right->right = createNode(60);
         assert(isAHeap(root) && 
         "Valid complex tree with correct greater-than-subtree property");
         deleteTree(root);
     }
 
-    std::cout << "All test cases passed!" << std::endl;
+    std::cout << "All test cases passed!" << '\n';
 }
 
 int main() {

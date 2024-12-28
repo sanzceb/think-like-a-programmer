@@ -8,7 +8,7 @@ with new. The term heap also describes a binary tree in which each node value
 is higher than any in the left or right subtree. Write a recursive function to
 determine whether a binary tree is a heap.
 
-## Analysis
+## Data Structures
 
 This will be the data structure used to implement binary trees:
 
@@ -28,15 +28,8 @@ The definition of the function is:
 bool isAHeap(treePtr rootPtr);
 ```
 
-Here is the BRI I defined for the implementation:
-
-<!--BRI-->
-1. The minimal tree is a tree with one node, which it is a heap by definition.
-2. Make a recursive call to check if the left node is a heap and if the node
-is bigger than the left subtree.
-3. Make a recursive call to check if the right node is a heap and if the node
-is bigger than the right subtree.
-4. If 2 and 3 conditions are met, the tree is a heap.
+For simplicity and since these exercises are for learning purposes, I will work
+only with **complete trees**.
 
 ## Solution Overview
 
@@ -44,35 +37,46 @@ This recursion has been a bit more difficult than the recursive problems of
 linked lists, so it is worth make some comments:
 
 ```cpp
-bool isAHeap(treePtr rootPtr) {
-    if (rootPtr == NULL) return false; //[1]
-    if (rootPtr->left == NULL && rootPtr->right == NULL) //[2]
-        return true;
-    if (rootPtr->left != NULL) { //[3]
-        if (!isAHeap(rootPtr->left)) return false;
-        if (rootPtr->data <= rootPtr->left->data) return false;
-    }
-    if (rootPtr->right != NULL) {
-        if (!isAHeap(rootPtr->right)) return false;
-        if (rootPtr->data <= rootPtr->right->data) return false;
-    }
-    return true;
+bool isAHeap(treePtr root) {
+    if (root == NULL) return false; //[1]
+    if (root->left == NULL && root->right == NULL) //[2]
+        return true;    
+    
+    bool isLeftAHeap = isAHeap(root->left); //[3]
+    bool isRightAHeap = isAHeap(root->right); //[4]
+    bool isLeftMax = (root->data > root->left->data); //[5]
+    bool isRightMax = (root->data > root->right->data); //[6]
+
+    return isLeftAHeap && isRightAHeap && isLeftMax && isRightMax; //[7]
 }
 ```
 
-[1]. The problem does not consider an empty tree a valid heap. This is due to
+Here is the BRI I defined for the implementation:
+
+[1] The problem does not consider an empty tree a valid heap. This is due to
 the fact that empty trees cannot be considered sorted by any criteria.
 
-[2]. The trivial case is the one node tree, which is always a heap.
+[2] The minimal tree is a tree with one node, which it is a heap by definition.
 
-[3]. Since it is not mentioned in the statement, I had assumed that a tree
-might not be complete and still meet the heap definition set by the author.
-This might differ from classical definitions of what a heap is.
+[3],[4] Make recursive calls to get the answer from the subtrees.
+
+[5], [6] Node inspection to check if the root is greater than the subtrees
+
+[7] The tree is a heap if the root is greater than the subtrees and its
+subtrees are heaps.
+
+## Notes
+
+The reason of making the recursive calls before the root inspection is to
+illustrate better the *Big Recursive Idea* presented in the book (p.161). These
+programs are meant to be educational for myself and for who is studying the
+book and finds this repository by chance.
 
 ## Appendix: Test Cases
 
 I had put at the end of the document the definition of each of the test cases,
-whose code have been generated using AI.
+whose code have been generated using AI. For simplicity, the implementations
+only work with **complete trees**.
 
 ### Basic Cases
 
@@ -95,8 +99,6 @@ whose code have been generated using AI.
      30
     /  \
    40   20
-   /
-  10
 ```
 
 ### Valid Tree - Complex Structure
@@ -105,6 +107,6 @@ whose code have been generated using AI.
      100
     /   \
    50    75
-  /  \   /
- 20  30 40
+  /  \   / \
+ 20  30 40  60
 ```
