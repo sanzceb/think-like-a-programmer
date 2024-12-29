@@ -48,7 +48,7 @@ V. Anton Spraul.
   - [x] 5.6 Variable-Length String: Refactor
   - [x] 5.7 Student Records: add and average
   - [x] 5.8 Student Records: Records within Range
-- [ ] Chapter 6: Solving Problems with Recursion (92.66%)
+- [x] Chapter 6: Solving Problems with Recursion (100%)
   - [x] 6.1 Positive Sum
   - [x] 6.2 Parity Checker
   - [x] 6.3 target counter
@@ -60,7 +60,9 @@ V. Anton Spraul.
   - [x] 6.9 Heap Checker
   - [x] 6.10 Binary Tree Checker
   - [x] 6.11 Binary Inserter
-- [ ] Chapter 7: Solving Problems with Code Reuse
+  - [x] 6.12 Statistics revisited
+- [ ] Chapter 7: Solving Problems with Code Reuse (12.5%)
+  - [x] 7.1 Internal Strategy Pattern: First Student Problem
 - [ ] Chapter 8: Thinking Like a Programmer
 
 ## About me
