@@ -63,6 +63,7 @@ V. Anton Spraul.
   - [x] 6.12 Statistics revisited
 - [ ] Chapter 7: Solving Problems with Code Reuse (12.5%)
   - [x] 7.1 Internal Strategy Pattern: First Student Problem
+  - [x] 7.2 Standard C++ list: add and average
 - [ ] Chapter 8: Thinking Like a Programmer
 
 ## About me
