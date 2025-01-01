@@ -61,9 +61,10 @@ V. Anton Spraul.
   - [x] 6.10 Binary Tree Checker
   - [x] 6.11 Binary Inserter
   - [x] 6.12 Statistics revisited
-- [ ] Chapter 7: Solving Problems with Code Reuse (12.5%)
+- [ ] Chapter 7: Solving Problems with Code Reuse (37.5%)
   - [x] 7.1 Internal Strategy Pattern: First Student Problem
   - [x] 7.2 Standard C++ list: add and average
+  - [x] 7.3 Interpolation Search Algorithm
 - [ ] Chapter 8: Thinking Like a Programmer
 
 ## About me
