@@ -3,16 +3,13 @@
 #include <random>
 #include <set>
 
-using std::cout;
+#include "../shared/student_record.h"
 
-struct studentRecord {
-    int grade;
-    int studentNum;
-};
+using std::cout;
 
 struct studentCompar {
     bool operator()(const studentRecord& a, const studentRecord& b) const {
-        return a.studentNum < b.studentNum;
+        return a.studentID() < b.studentID();
     }
 };
 
@@ -27,24 +24,24 @@ void studentWithNumberTester();
 int studentNumCompar(const void *voidA, const void *voidB) {
     studentRecord *studentA = (studentRecord *)voidA;
     studentRecord *studentB = (studentRecord *)voidB;
-    return (*studentA).studentNum - (*studentB).studentNum;
+    return (*studentA).studentID() - (*studentB).studentID();
 }
 
 int studentWithNumber(studentRecord sc[], const int STUDENTS_NUM, int stuNum) {
     int begin = 0, end = STUDENTS_NUM - 1;
     // if(stuNum out of range)
-    if (sc[begin].studentNum > stuNum || stuNum > sc[end].studentNum) {
+    if (sc[begin].studentID() > stuNum || stuNum > sc[end].studentID()) {
         return -1;
     }
     while (begin <= end) {
-        int valueDist = stuNum - sc[begin].studentNum;
-        int valueRange = sc[end].studentNum - sc[begin].studentNum;
+        int valueDist = stuNum - sc[begin].studentID();
+        int valueRange = sc[end].studentID() - sc[begin].studentID();
         int posRange = end - begin;
         int searchPos = begin + (valueDist * posRange) / valueRange;
-        if (sc[searchPos].studentNum == stuNum) {
+        if (sc[searchPos].studentID() == stuNum) {
             return searchPos;
         }
-        else if (sc[searchPos].studentNum < stuNum) {
+        else if (sc[searchPos].studentID() < stuNum) {
             begin = searchPos + 1;
         } else {
             end = searchPos - 1;
@@ -54,9 +51,7 @@ int studentWithNumber(studentRecord sc[], const int STUDENTS_NUM, int stuNum) {
 }
 
 void addRecord(studentCollection &sc, int stuNum, int gr) {
-    studentRecord newStudent;
-    newStudent.studentNum = stuNum;
-    newStudent.grade = gr;
+    studentRecord newStudent(gr, stuNum, "");
     sc.insert(newStudent);
 }
 
@@ -95,7 +90,7 @@ void studentWithNumberTester() {
 
     // Students sorted by student number
     qsort(scSorted, STUDENTS_NUM, sizeof(studentRecord), studentNumCompar);
-    stuNum = scSorted[0].studentNum;
+    stuNum = scSorted[0].studentID();
 
     // First student with number
     assert((studentWithNumber(scSorted, STUDENTS_NUM, stuNum) == 0 
@@ -107,7 +102,7 @@ void studentWithNumberTester() {
          && "Student out of range should not be found");
 
     // Last student with number
-    stuNum = scSorted[STUDENTS_NUM - 1].studentNum;
+    stuNum = scSorted[STUDENTS_NUM - 1].studentID();
     assert(((studentWithNumber(scSorted, STUDENTS_NUM, stuNum) 
         == STUDENTS_NUM - 1) && "Last student search"));
 
@@ -116,7 +111,7 @@ void studentWithNumberTester() {
     assert((studentWithNumber(scSorted, STUDENTS_NUM, stuNum) == -1) 
         && "Student out of range should not be found");
 
-    stuNum = scSorted[STUDENTS_NUM / 2].studentNum;
+    stuNum = scSorted[STUDENTS_NUM / 2].studentID();
     assert(((studentWithNumber(scSorted, STUDENTS_NUM, stuNum) 
         == STUDENTS_NUM / 2) && "Student search failed"));
 
@@ -155,11 +150,11 @@ void runBigInterpolation() {
 
     cout << "\nStudents sorted";
     studentRecord stu = scSorted[(3 * STUDENTS_NUM) / 4];
-    cout << "\nSearching student " << stu.studentNum;
+    cout << "\nSearching student " << stu.studentID();
     
     // Interpolation Search
     t1 = std::chrono::high_resolution_clock::now();
-    int pos = studentWithNumber(scSorted, STUDENTS_NUM, stu.studentNum);
+    int pos = studentWithNumber(scSorted, STUDENTS_NUM, stu.studentID());
     t2 = std::chrono::high_resolution_clock::now();
     
     assert(pos == (3 * STUDENTS_NUM) / 4);
@@ -171,7 +166,7 @@ void runBigInterpolation() {
     // Linear Search
     t1 = std::chrono::high_resolution_clock::now();
     pos = 0;
-    while (pos < STUDENTS_NUM && scSorted[pos].studentNum != stu.studentNum) {
+    while (pos < STUDENTS_NUM && scSorted[pos].studentID() != stu.studentID()) {
         pos++;
     }
     t2 = std::chrono::high_resolution_clock::now();

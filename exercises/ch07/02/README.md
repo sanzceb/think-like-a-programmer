@@ -22,7 +22,7 @@ These are the tasks that I planned to implement the solution:
 
 1. Take the code from Chapter 4 pp. (101-108).
 2. Remove the dynamic structure.
-3. Define a new struct that groups the student data
+3. Reuse the studentRecord component located in `shared`.
 4. Replace the custom component used for the `studentCollection`
 with the component `forward_list`.
 5. Reimplement `addRecord` using the operation `push_front` of `forward_list`.
@@ -42,11 +42,7 @@ struct listNode {
 typedef listNode * studentCollection;
 
 // New implementation using forward_list
-struct studentData {
-    int studentNum;
-    int grade;
-};
-typedef std::forward_list<studentData> studentCollection;
+typedef std::forward_list<studentRecord> studentCollection;
 ```
 
 <!-- Links -->

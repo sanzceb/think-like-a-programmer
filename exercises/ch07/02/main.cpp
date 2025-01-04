@@ -1,20 +1,15 @@
 #include <iostream>
 #include <forward_list>
 
+#include "../shared/student_record.h"
+
 using std::cout;
 
-struct student {
-    int studentNum;
-    int grade;
-};
-
-typedef std::forward_list<student> studentCollection;
+typedef std::forward_list<studentRecord> studentCollection;
 typedef studentCollection::iterator studentIterator;
 
 void addRecord(studentCollection & sc, int stuNum, int gr) {
-    student newStudent;
-    newStudent.studentNum = stuNum;
-    newStudent.grade = gr;
+    studentRecord newStudent(gr, stuNum, "");
     sc.push_front(newStudent);
 }
 
@@ -22,7 +17,7 @@ double averageRecord(studentCollection & sc) {
     if (sc.empty()) return 0;
     int stuSum = 0; int count = 0;
     for (studentIterator iter = sc.begin(); iter != sc.end(); iter++) {
-        stuSum += iter->grade;
+        stuSum += (*iter).grade();
         count++;
     }
     return (double) stuSum / count;

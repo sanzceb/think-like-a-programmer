@@ -1,24 +1,8 @@
 #include <iostream>
 
-using std::string;
-using std::cout;
+#include "../shared/student_record.h"
 
-class studentRecord {
-public:
-    studentRecord();
-    studentRecord(int newGrade, int newID, string newName);
-    int grade();
-    void setGrade(int newGrade);
-    int studentID();
-    void setStudentID(int newID);
-    string name();
-    void setName(string newName);
-private:
-    int _grade;
-    int _studentID;
-    string _name;
-    bool isValidGrade(int grade);
-};
+using std::cout;
 
 class studentCollection {
 public:
@@ -123,56 +107,6 @@ int main(){
     cout << sc.firstStudent().studentID() << " "
         << sc.firstStudent().name() << '\n';
 
-}
-
-// Supporting Code Implementation
-
-// class studentRecord
-
-bool studentRecord::isValidGrade(int grade) {
-    if ((grade >= 0) && (grade <= 100))
-        return true;
-    else
-        return false;
-}
-
-int studentRecord::grade() {
-    return _grade;
-}
-
-void studentRecord::setGrade(int newGrade) {
-    if (isValidGrade(newGrade)) {
-        _grade = newGrade;
-    }
-}
-
-string studentRecord::name() {
-    return _name;
-}
-
-void studentRecord::setName(string newName) {
-    _name = newName;
-}
-
-int studentRecord::studentID() {
-    return _studentID;
-}
-
-void studentRecord::setStudentID(int newID) {
-    _studentID = newID;
-}
-
-
-studentRecord::studentRecord(int newGrade, int newID, string newName) {
-    setGrade(newGrade);
-    setStudentID(newID);
-    setName(newName);
-}
-
-studentRecord::studentRecord() {
-    setGrade(0);
-    setStudentID(-1);
-    setName("");
 }
 
 // class studentCollection
