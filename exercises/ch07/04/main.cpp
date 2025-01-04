@@ -1,29 +1,28 @@
 #include <iostream>
 #include <cassert>
 #include <random>
-#include <set>
 
-struct studentRecord {
-    int grade;
-    int studentNum;
-};
+#include "../shared/student_record.h"
+
+using std::cout;
 
 class symbolTable {
 public:
     // Constructors
     symbolTable();
+    symbolTable(int size);
     symbolTable(const symbolTable& original);
     // Destructor
     ~symbolTable();
     // Operators
     symbolTable & operator=(const symbolTable & rhs);
     // Support Methods
-    addRecord(int stuNum, int grade);
+    void addRecord(int stuNum, int grade);
     studentRecord record(int stuNum);
 private:
     typedef studentRecord * studentArray;
-    const double LOAD_FACTOR = 0.7;
-    const int RESIZE_FACTOR = 2;
+    // static const double LOAD_FACTOR = 0.7;
+    // static const int RESIZE_FACTOR = 2;
     int _size;
     studentArray _studentArray;
     
@@ -35,6 +34,11 @@ typedef symbolTable studentCollection;
 
 symbolTable::symbolTable() {
     _size = 10;
+    _studentArray = new studentRecord[_size];
+}
+
+symbolTable::symbolTable(int size) {
+    _size = size;
     _studentArray = new studentRecord[_size];
 }
 
@@ -56,83 +60,60 @@ symbolTable &symbolTable::operator=(const symbolTable &rhs) {
     return *this;
 }
 
-symbolTable::addRecord(int stuNum, int grade) {
-    studentRecord newSr;
-    newSr.grade = grade;
-    newSr.studentNum = stuNum;
+void symbolTable::addRecord(int stuNum, int grade) {
+    studentRecord newSr(grade, stuNum);
     int stuPos = hash(stuNum);
     _studentArray[stuPos] = newSr;
 }
 
 studentRecord symbolTable::record(int stuNum) {
-    return _studentArray[hash(stuNum)];
+    studentRecord retrieved = _studentArray[hash(stuNum)];
+    cout << "\nretrieved: " << retrieved.studentID() 
+    << " " << retrieved.grade();
+    if (retrieved.studentID() == stuNum) {
+        return retrieved;
+    } else {
+        studentRecord dummy;
+        return dummy;
+    }
 }
 
 int symbolTable::hash(int stuNum) {
     return stuNum % _size;
 }
 
-studentArray symbolTable::copiedArray(const studentArray & original) {
-    if (original._size <= 0) return NULL;
-    studentArray newStuArray = new studentRecord[original._size];
-    for (int i = 0; i < original._size; i++) {
+symbolTable::studentArray symbolTable::copiedArray(
+    const symbolTable::studentArray & original) {
+    if (_size <= 0) return NULL;
+    studentArray newStuArray = new studentRecord[_size];
+    for (int i = 0; i < _size; i++) {
         newStuArray[i] = original[i];
     }
     return newStuArray;
 }
 
-void symbolTableBasicTester();
+void symbolTableBasicTester() {
+    const int STUDENTS_NUM = 10;
+    studentCollection sc(STUDENTS_NUM);
+
+    sc.addRecord(10001, 87);
+    sc.addRecord(10002, 28);
+    sc.addRecord(10003, 100);
+    sc.addRecord(10004, 78);
+    sc.addRecord(10005, 84);
+    sc.addRecord(10006, 98);
+    sc.addRecord(10007, 75);
+    sc.addRecord(10008, 70);
+    sc.addRecord(10009, 81);
+    sc.addRecord(10010, 68);
+
+    cout << "Students:\n";
+   for (int i = 1; i <= STUDENTS_NUM; i++) {
+        sc.record(10000 + i);
+   }
+   
+}
 
 int main() {
     symbolTableBasicTester();
-}
-
-// Helper code for testing
-int studentNumCompar(const void *voidA, const void *voidB) {
-    studentRecord *studentA = (studentRecord *)voidA;
-    studentRecord *studentB = (studentRecord *)voidB;
-    return (*studentA).studentNum - (*studentB).studentNum;
-}
-
-void symbolTableBasicTester() {
-    studentCollection sc;
-    std::random_device rd, rd2;
-    std::uniform_int_distribution<> stuNumDist(1, 30000);
-    std::uniform_int_distribution<> gradeDist(0, 100);
-
-    // Resources to perform the search
-    const int STUDENTS_NUM = 10;
-    int stuNum = 0;
-
-    // Random Students evenly distributed
-    for (int i = 0; i < STUDENTS_NUM; i++) {
-        int newStuNum = stuNumDist(rd);
-        int newGrade = gradeDist(rd2);
-        addRecord(sc, newStuNum, newGrade);    
-    }
-
-    // First student with number
-    assert((sc.record(stuNum) == 0 
-        && "Student at pos 0 search failed"));
-
-    stuNum -= 10;
-    // Student below range with number
-    assert((sc.record(stuNum) == -1)
-         && "Student out of range should not be found");
-
-    // Last student with number
-    stuNum = scSorted[STUDENTS_NUM - 1].studentNum;
-    assert(((sc.record(stuNum) 
-        == STUDENTS_NUM - 1) && "Last student search"));
-
-    stuNum += 10;
-    // Student above range with number "
-    assert((sc.record(stuNum) == -1) 
-        && "Student out of range should not be found");
-
-    stuNum = scSorted[STUDENTS_NUM / 2].studentNum;
-    assert(((sc.record(stuNum) 
-        == STUDENTS_NUM / 2) && "Student search failed"));
-
-    cout << "All Test Passed!";
 }
