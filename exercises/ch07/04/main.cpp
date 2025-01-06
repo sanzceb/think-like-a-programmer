@@ -21,11 +21,13 @@ public:
     studentRecord record(int stuNum);
 private:
     typedef studentRecord * studentArray;
-    // static const double LOAD_FACTOR = 0.7;
-    // static const int RESIZE_FACTOR = 2;
+    const static int LOAD_FACTOR = 7;
+    const static int RESIZE_FACTOR = 2;
+    int _count;
     int _size;
     studentArray _studentArray;
     
+    bool requiresResize();
     int hash(int stuNum);
     studentArray copiedArray(const studentArray & original);
 };
@@ -34,16 +36,19 @@ typedef symbolTable studentCollection;
 
 symbolTable::symbolTable() {
     _size = 10;
+    _count = 0;
     _studentArray = new studentRecord[_size];
 }
 
 symbolTable::symbolTable(int size) {
     _size = size;
+    _count = 0;
     _studentArray = new studentRecord[_size];
 }
 
 symbolTable::symbolTable(const symbolTable &original) {
     _size = original._size;
+    _count = original._count;
     _studentArray = copiedArray(original._studentArray);
 }
 
@@ -56,20 +61,34 @@ symbolTable &symbolTable::operator=(const symbolTable &rhs) {
         delete[] _studentArray;
         _studentArray = copiedArray(rhs._studentArray);
         _size = rhs._size;
+        _count = rhs._count;
     }
     return *this;
 }
 
 void symbolTable::addRecord(int stuNum, int grade) {
-    studentRecord newSr(grade, stuNum);
+    if (requiresResize()) {
+        // rehash
+        int oldSize = _size;
+        _size *= RESIZE_FACTOR;
+        studentArray newArray = new studentRecord[_size];    
+        for (int i = 0; i < oldSize; i++) {
+            int stuID = _studentArray[i].studentID();
+            if (stuID != -1) {
+                int newPos = hash(stuID);
+                newArray[newPos] = _studentArray[i];
+            }
+        }
+        delete[] _studentArray;
+        _studentArray = newArray;
+    }
     int stuPos = hash(stuNum);
-    _studentArray[stuPos] = newSr;
+    _studentArray[stuPos] = studentRecord(grade, stuNum);
+    _count++;
 }
 
 studentRecord symbolTable::record(int stuNum) {
     studentRecord retrieved = _studentArray[hash(stuNum)];
-    cout << "\nretrieved: " << retrieved.studentID() 
-    << " " << retrieved.grade();
     if (retrieved.studentID() == stuNum) {
         return retrieved;
     } else {
@@ -92,10 +111,15 @@ symbolTable::studentArray symbolTable::copiedArray(
     return newStuArray;
 }
 
+bool symbolTable::requiresResize() {
+    return ((_count * 10) / _size) >= LOAD_FACTOR;
+}
+
 void symbolTableBasicTester() {
     const int STUDENTS_NUM = 10;
     studentCollection sc(STUDENTS_NUM);
 
+    sc.addRecord(10000, 87);
     sc.addRecord(10001, 87);
     sc.addRecord(10002, 28);
     sc.addRecord(10003, 100);
@@ -105,15 +129,57 @@ void symbolTableBasicTester() {
     sc.addRecord(10007, 75);
     sc.addRecord(10008, 70);
     sc.addRecord(10009, 81);
-    sc.addRecord(10010, 68);
 
-    cout << "Students:\n";
-   for (int i = 1; i <= STUDENTS_NUM; i++) {
-        sc.record(10000 + i);
+   for (int i = 0; i < STUDENTS_NUM; i++) {
+        int stuNum = 10000 + i;
+        studentRecord sr = sc.record(stuNum);
+        assert(sr.studentID() == stuNum);
    }
-   
+}
+
+void symbolTableManyStudentsTester() {
+    // Structures to create the random students
+    studentCollection sc;
+    std::random_device rd;
+    std::uniform_int_distribution<> gradeDist(0, 100);
+
+    // Resources to perform the search
+    const int STUDENTS_NUM = 100;
+
+    // Random Students evenly distributed
+    for (int i = 0; i < STUDENTS_NUM; i++) {
+        int newGrade = gradeDist(rd);
+        sc.addRecord(50000 + i, newGrade);
+    }
+
+    for (int i = 0; i < STUDENTS_NUM; i++) {
+        int stuNum = 50000 + i;
+        studentRecord sr = sc.record(stuNum);
+        assert(sr.studentID() == stuNum);
+    }
+}
+
+void symbolTableCopyTester() {
+    studentCollection original(5);
+    original.addRecord(4001, 90);
+    original.addRecord(4002, 85);
+    
+    // Test copy constructor
+    studentCollection copied(original);
+    assert(copied.record(4001).grade() == 90);
+    
+    // Test assignment operator
+    studentCollection assigned = original;
+    assert(assigned.record(4002).grade() == 85);
+    
+    // Modify original and verify copies are independent
+    original.addRecord(4001, 95);
+    assert(copied.record(4001).grade() == 90);
 }
 
 int main() {
     symbolTableBasicTester();
+    symbolTableManyStudentsTester();
+    symbolTableCopyTester();
+    cout << "All test passed!" <<  '\n';
 }
