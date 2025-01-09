@@ -25,7 +25,7 @@ private:
     const static int RESIZE_FACTOR = 2;
     int _count;
     int _size;
-    studentArray _studentArray;
+    studentArray _studentMap;
     
     bool requiresResize();
     int hash(int stuNum);
@@ -37,29 +37,29 @@ typedef symbolTable studentCollection;
 symbolTable::symbolTable() {
     _size = 10;
     _count = 0;
-    _studentArray = new studentRecord[_size];
+    _studentMap = new studentRecord[_size];
 }
 
 symbolTable::symbolTable(int size) {
     _size = size;
     _count = 0;
-    _studentArray = new studentRecord[_size];
+    _studentMap = new studentRecord[_size];
 }
 
 symbolTable::symbolTable(const symbolTable &original) {
     _size = original._size;
     _count = original._count;
-    _studentArray = copiedArray(original._studentArray);
+    _studentMap = copiedArray(original._studentMap);
 }
 
 symbolTable::~symbolTable() {
-    delete[] _studentArray;
+    delete[] _studentMap;
 }
 
 symbolTable &symbolTable::operator=(const symbolTable &rhs) {
     if (this != &rhs) {
-        delete[] _studentArray;
-        _studentArray = copiedArray(rhs._studentArray);
+        delete[] _studentMap;
+        _studentMap = copiedArray(rhs._studentMap);
         _size = rhs._size;
         _count = rhs._count;
     }
@@ -73,22 +73,22 @@ void symbolTable::addRecord(int stuNum, int grade) {
         _size *= RESIZE_FACTOR;
         studentArray newArray = new studentRecord[_size];    
         for (int i = 0; i < oldSize; i++) {
-            int stuID = _studentArray[i].studentID();
+            int stuID = _studentMap[i].studentID();
             if (stuID != -1) {
                 int newPos = hash(stuID);
-                newArray[newPos] = _studentArray[i];
+                newArray[newPos] = _studentMap[i];
             }
         }
-        delete[] _studentArray;
-        _studentArray = newArray;
+        delete[] _studentMap;
+        _studentMap = newArray;
     }
     int stuPos = hash(stuNum);
-    _studentArray[stuPos] = studentRecord(grade, stuNum);
+    _studentMap[stuPos] = studentRecord(grade, stuNum);
     _count++;
 }
 
 studentRecord symbolTable::record(int stuNum) {
-    studentRecord retrieved = _studentArray[hash(stuNum)];
+    studentRecord retrieved = _studentMap[hash(stuNum)];
     if (retrieved.studentID() == stuNum) {
         return retrieved;
     } else {
@@ -141,7 +141,7 @@ void symbolTableManyStudentsTester() {
     // Structures to create the random students
     studentCollection sc;
     std::random_device rd;
-    std::uniform_int_distribution<> gradeDist(0, 100);
+    std::uniform_int_distribution<> gradeDist(1, 100);
 
     // Resources to perform the search
     const int STUDENTS_NUM = 100;

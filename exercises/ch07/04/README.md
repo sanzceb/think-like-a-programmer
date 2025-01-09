@@ -17,14 +17,14 @@ I choose **hash tables** to implement the symbol table because:
 - They are good for catching duplicates because the search is fast.
 - Student ID is a number so that makes the hash implementation easier.
 - The internal structure uses an array, a structure that at this point is
-relatively easy to work with.
+relatively easy to work with for me.
 - The search operation is trivial since it makes use of random access.
 
 They key considerations are:
 
 - When inserting elements, do *resizing* each time the *load factor* is reached.
 - Resizing means allocating a more memory and then storing the existing
-elements in the new array. <!--TODO add reference to grokking algorithms-->
+elements in the new array.
 - To store the existing elements, we need to reapply the hash function.
 
 ```cpp
