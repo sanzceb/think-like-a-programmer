@@ -50,3 +50,16 @@ studentRecord::studentRecord() {
     setStudentID(-1);
     setName("");
 }
+
+
+string studentRecord::title() {
+    return "";
+}
+
+int studentRecord::enrollmentYear() {
+    return -1;
+}
+
+bool studentRecord::isAudit() {
+    return false;
+}

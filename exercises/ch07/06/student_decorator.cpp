@@ -1,22 +1,30 @@
 #include "student_decorator.h"
 
-studentRecordTitle::studentRecordTitle(studentRecord & sc,
-    string newTile)
-    : studentDecorator(sc) {
-    _tile = newTile;
+studentDecorator::studentDecorator(IStudentComponent &sc) {
+    _studentPtr = &sc;
 }
 
-studentRecordEnrollmentYear::studentRecordEnrollmentYear(studentRecord & sc,
+studentRecordTitle::studentRecordTitle(IStudentComponent & sc,
+    string newTitle)
+    : studentDecorator(sc) {
+    _title = newTitle;
+}
+
+studentRecordEnrollmentYear::studentRecordEnrollmentYear(IStudentComponent & sc,
     int newYear) : studentDecorator(sc) {
         _enrollmentYear = newYear;
     }
 
-studentRecordAudit::studentRecordAudit(studentRecord & sc, bool isAudit)
+studentRecordAudit::studentRecordAudit(IStudentComponent & sc, bool isAudit)
     : studentDecorator(sc) {
         _isAudit = isAudit;
     }
 
-int studentDecorator::grade() const {
+string studentDecorator::title() {
+    return _studentPtr->title();
+}
+
+int studentDecorator::grade() {
     return _studentPtr->grade();
 }
 
@@ -24,12 +32,20 @@ int studentDecorator::studentID() const {
     return _studentPtr->studentID();
 }
 
-string studentDecorator::name() const {
+string studentDecorator::name() {
     return _studentPtr->name();
 }
 
-string studentRecordTitle::title() const {
-    return _tile;
+int studentDecorator::enrollmentYear() {
+    return _studentPtr->enrollmentYear();
+}
+
+bool studentDecorator::isAudit() {
+    return _studentPtr->isAudit();
+}
+
+string studentRecordTitle::title() {
+    return _title;
 }
 
 int studentRecordEnrollmentYear::enrollmentYear() {
@@ -39,8 +55,8 @@ int studentRecordEnrollmentYear::enrollmentYear() {
 bool studentRecordAudit::isAudit() {
     return _isAudit;
 }
-void studentRecordTitle::setTitle(string newTile) {
-    _tile = newTile;
+void studentRecordTitle::setTitle(string newTitle) {
+    _title = newTitle;
 }
 
 void studentRecordEnrollmentYear::setEnrollmentYear(int newYear) {

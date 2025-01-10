@@ -3,33 +3,35 @@
 #ifndef STUDENT_DECORATOR_H
 #define STUDENT_DECORATOR_H
 
-class studentDecorator {
+class studentDecorator : public IStudentComponent {
 public:
-    int grade() const;
+    int grade(); 
     int studentID() const;
-    string name() const;
+    string name();
+
+    virtual string title();
+    virtual int enrollmentYear();
+    virtual bool isAudit();
 protected:
-    studentDecorator(studentRecord & sc) {
-        _studentPtr = &sc;
-    }
+    studentDecorator(IStudentComponent &); 
 private:
-    studentRecord * _studentPtr;
+    IStudentComponent * _studentPtr;
 };
 
 class studentRecordTitle : public studentDecorator {
 public:
-    studentRecordTitle(studentRecord & sc, string newTitle);
+    studentRecordTitle(IStudentComponent &, string newTitle);
 
-    string title() const;
+    string title();
     void setTitle(string newTitle);
 
 private:
-    string _tile;
+    string _title;
 };
 
 class studentRecordEnrollmentYear : public studentDecorator {
 public:
-    studentRecordEnrollmentYear(studentRecord & sc, int newYear);
+    studentRecordEnrollmentYear(IStudentComponent &, int newYear);
 
     int enrollmentYear();
     void setEnrollmentYear(int newYear);
@@ -39,7 +41,7 @@ private:
 
 class studentRecordAudit : public studentDecorator {
 public:
-    studentRecordAudit(studentRecord & sc, bool isAudit);
+    studentRecordAudit(IStudentComponent &, bool isAudit);
 
     bool isAudit();
     void setIsAudit(bool newIsAudit);
