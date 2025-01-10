@@ -1,4 +1,5 @@
 #include <iostream>
+#include <cstring>
 
 #include "../shared/student_record.h"
 
