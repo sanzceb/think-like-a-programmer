@@ -1,31 +1,36 @@
-/*
-* - program a hash table of object pointers
-* - Extend the student_record definition
-* - Using the unordered_map API
-*   - Implement addExtraField 
-*   - Implement retrieveField
-*/
 #include <iostream>
 using std::cout;
 using std::string;
+
 #include <unordered_map>
-using std::unordered_map;
-using std::pair;
 
+class studentRecord {
+public:
+void addExtraField(string name, string value);
+string retrieveField(string name);
+private:
+typedef std::pair<string, string> extraField;
+typedef std::unordered_map<string, string> extraFieldsMap;
 
-template <typename T> 
-T * retrieveField(string name, unordered_map<string, void*> hashTable) {
-    return (T *)hashTable.at(name);
+extraFieldsMap _extraFields;
+
+};
+
+void studentRecord::addExtraField(string name, string value) {
+    // The operator [] always inserts the key does not exists
+    // so it is more fit for insertion than for trying access
+    _extraFields[name] = value;
+}
+
+string studentRecord::retrieveField(string name) {
+    extraFieldsMap::iterator fieldIt = _extraFields.find(name);
+    if (fieldIt != _extraFields.end()) {
+        return fieldIt->second;
+    } else {
+        return "";
+    }
 }
 
 int main() {
-    unordered_map<string, void *> hashTable;
-    string value = "Problems of Unconditional Branching";
-    bool audit = false;
 
-    hashTable.insert(pair<string, string*>("title", &value));
-    hashTable.insert(pair<string, bool*>("isAudit", &audit));
-    cout << retrieveField<string>("title", hashTable)->c_str()
-        << '\n'
-        << ((*retrieveField<bool>("isAudit", hashTable)) ? "Yes" : "No");
 }

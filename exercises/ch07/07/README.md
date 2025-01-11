@@ -32,3 +32,16 @@ container.
 using std::unordered_map;
 using std::pair;
 ```
+
+The next topic is about what types are chosen to be values, I have considered
+two options: store strings, and store generic pointers:
+
+```cpp
+std::unordered_map<string, string>
+std::unordered_map<string, void*>
+```
+
+The option of storing pointers gives more flexibility and it is more efficient
+in terms of memory management, because we store references to objects instead,
+but each time we want to retrieve a value, a dynamic casting is required, and I
+think that introduces a complexity that it is not worth it.
