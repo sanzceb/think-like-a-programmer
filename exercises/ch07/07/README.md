@@ -13,12 +13,12 @@ return “Problems of Unconditional Branching.”
 ## Analysis
 
 We need a structure that allows arbitrary extra fields to be added but also
-retrieved. Throughout this chapter we have studied an implemented the
-symbol table, which allows to efficiently add and retrieve items. We use it to
-add and retrieve students, and we can use it in the same way to manage fields.
+retrieved. Throughout this chapter I learned how to implement the symbol table,
+which allows to efficiently add and retrieve items. We used it to add and
+retrieve students, and we can apply it in the same way to fields.
 
 We are requested to use the standard library, so we will apply what was learned
-during the implementation of the symbol table of that was written for solving
+during the implementation of the symbol table that was written for solving
 exercise 5. This means we will look at the associative containers components of
 the standard library.
 
@@ -44,4 +44,14 @@ std::unordered_map<string, void*>
 The option of storing pointers gives more flexibility and it is more efficient
 in terms of memory management, because we store references to objects instead,
 but each time we want to retrieve a value, a dynamic casting is required, and I
-think that introduces a complexity that it is not worth it.
+think that introduces a complexity that it is not worth it so I decided to
+implement the string value solution.
+
+## Solution overview
+
+I have implemented a solution that is similar to the implemented in exercise 5.
+The key difference is that I use the operator `[]` to insert new values
+instead, which is more concise. However, I don't use it to search because it
+inserts the key in case it is not found and I don't desire that behaviour.
+
+I have ommitted the other data members of student record to be concise.

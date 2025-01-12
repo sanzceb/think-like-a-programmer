@@ -68,7 +68,7 @@ V. Anton Spraul.
   - [x] 7.4 Custom symbol table
   - [x] 7.5 Standard symbol table
   - [x] 7.6 Student Decorator
-  - [] 7.7 Student Attributes with Standard Library
+  - [x] 7.7 Student Attributes with Standard Library
 - [ ] Chapter 8: Thinking Like a Programmer
 
 ## About me

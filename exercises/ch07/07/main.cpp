@@ -3,6 +3,7 @@ using std::cout;
 using std::string;
 
 #include <unordered_map>
+#include <cassert>
 
 class studentRecord {
 public:
@@ -19,7 +20,7 @@ extraFieldsMap _extraFields;
 void studentRecord::addExtraField(string name, string value) {
     // The operator [] always inserts the key does not exists
     // so it is more fit for insertion than for trying access
-    _extraFields[name] = value;
+    if (!value.empty()) _extraFields[name] = value;
 }
 
 string studentRecord::retrieveField(string name) {
@@ -31,6 +32,27 @@ string studentRecord::retrieveField(string name) {
     }
 }
 
-int main() {
+void emptyFieldsTester() {
+    studentRecord sr1;
+    assert(sr1.retrieveField("empty") == "");
+}
 
+void validFieldTester() {
+    studentRecord sr1;
+    string value = "Problems of Unconditional Branching";
+    sr1.addExtraField("title", value);
+    assert(sr1.retrieveField("title") == value);
+}
+
+void wrongKeyTester() {
+    studentRecord sr1;
+    string value = "Problems of Unconditional Branching";
+    sr1.addExtraField("title", value);
+    assert(sr1.retrieveField("Title") == "");
+}
+
+int main() {
+   emptyFieldsTester(); 
+   validFieldTester();
+   wrongKeyTester();
 }
