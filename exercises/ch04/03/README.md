@@ -5,7 +5,7 @@
 For our dynamically allocated strings, create a function `replaceString` that
 takes three parameters, each of type `arrayString`: `source`, `target`, and
 `replaceText`. The function replaces every occurrence of `target` in `source`
-with `replaceText`. For example, if source points to an array containing 
+with `replaceText`. For example, if source points to an array containing
 `abcdabee`, target points to `ab`, and `replaceText` points to `xyz`, then when
 the function ends, source should point to an array containing `xyzcdxyzee`.
 
@@ -99,4 +99,4 @@ references, etc) I have been capable of writing the program with confidence. I
 barely spent a fraction of the time debugging.
 
 <!-- Links -->
-[4-2]: (https://github.com/SanzCeb/think-like-a-programmer/tree/main/exercises/ch04/4-2)
+[4-2]: (https://github.com/SanzCeb/think-like-a-programmer/tree/main/exercises/ch04/02)
