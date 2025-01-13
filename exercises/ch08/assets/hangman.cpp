@@ -136,6 +136,21 @@ void mostFreqPatternByLetter(list<string> wordList, char letter,
         currentPattern.clear();
     }
 } 
+
+list<string> reduceByPattern(list<string> & wordList, char nextLetter, 
+    list<int> nextPattern) {
+    list<string>::iterator iter;
+    iter = wordList.begin();
+    while(iter != wordList.end()) {
+        if (!matchesPattern(*iter, nextLetter, nextPattern)) {
+            iter = wordList.erase(iter);
+        } else {
+            iter++;
+        }
+    }
+    return wordList;
+}
+
 void displayGuessedLetters(bool letters[26]) {
     cout << "Letters guessed: ";
     for (int i = 0; i < 26; i++) {
@@ -156,20 +171,44 @@ void displayList(const list<string> & wordList) {
 int main() {
     list<string> wordList = readWordFile("wordList.txt");
     const int wordLength = 8;
-    bool guessedLetters[26]; 
-    for (int i = 0; i < 26; i++) guessedLetters[i] = false;
-
-    cout << "List before: " << '\n';
-    displayList(wordList);
-
+    const int maxMisses = 9;
+    int misses = 0;
+    int discoveredLetterCount = 0;
     removeWordsOfWrongLength(wordList, wordLength);
-
-    cout << "\nList after: " << '\n';
-    displayList(wordList);
-
-    displayGuessedLetters(guessedLetters);
-
-    cout << "words without c: " 
-        << countWordsWithoutLetter(wordList, 'c')
-        << '\n';
+    char revealedWord[wordLength + 1] = "********";
+    bool guessedLetters[26];
+    for (int i = 0; i < 26; i++) guessedLetters[i] = false;
+    char nextLetter;
+    cout << "Word so far: " << revealedWord << "\n";
+    while (discoveredLetterCount < wordLength && misses < maxMisses) {
+        cout << "Letter to guess: ";
+        cin >> nextLetter;
+        guessedLetters[nextLetter - 'a'] = true;
+        int missingCount = countWordsWithoutLetter(wordList, nextLetter);
+        list<int> nextPattern;
+        int nextPatternCount;
+        mostFreqPatternByLetter(wordList,
+            nextLetter, nextPattern, nextPatternCount);
+        if (missingCount > nextPatternCount) {
+            removeWordsWithLetter(wordList, nextLetter);
+            misses++;
+        } else {
+            list<int>::iterator iter = nextPattern.begin();
+            while (iter != nextPattern.end()) {
+                discoveredLetterCount++;
+                revealedWord[*iter] = nextLetter;
+                iter++;
+            }
+            wordList = reduceByPattern(wordList, nextLetter, nextPattern);
+        }
+        cout << "Word so far: " << revealedWord << "\n";
+        displayGuessedLetters(guessedLetters);
+    }
+    if (misses == maxMisses) {
+        cout << "Sorry. You lost. The word I was thinking of was '";
+        cout << (wordList.cbegin())->c_str() << "'.\n";
+    } else {
+        cout << "Great job. You win. Word was '" << revealedWord << "'.\n";
+    }
+    return 0;
 }
