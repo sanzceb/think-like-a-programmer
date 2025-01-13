@@ -29,6 +29,19 @@ list<string> readWordFile(char * filename) {
     return wordList;
 }
 
+int countWordsWithoutLetter(const list<string> & wordList, char letter) {
+    list <string>::const_iterator iter;
+    int count = 0;
+    iter = wordList.begin();
+    while (iter != wordList.end()) {
+        if (iter->find(letter) == string::npos) {
+            count++;
+        }
+        iter++;
+    }
+    return count;
+}
+
 void removeWordsOfWrongLength(list<string> & wordList, int acceptableLength) {
     list <string>::iterator iter;
     iter = wordList.begin();
@@ -40,6 +53,7 @@ void removeWordsOfWrongLength(list<string> & wordList, int acceptableLength) {
         }
     }
 }
+
 
 void displayGuessedLetters(bool letters[26]) {
     cout << "Letters guessed: ";
@@ -65,8 +79,15 @@ int main() {
 
     cout << "List before: " << '\n';
     displayList(wordList);
+
     removeWordsOfWrongLength(wordList, wordLength);
+
     cout << "\nList after: " << '\n';
     displayList(wordList);
+
     displayGuessedLetters(guessedLetters);
+
+    cout << "words without c: " 
+        << countWordsWithoutLetter(wordList, 'c')
+        << '\n';
 }
