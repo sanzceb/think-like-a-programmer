@@ -29,6 +29,18 @@ list<string> readWordFile(char * filename) {
     return wordList;
 }
 
+void removeWordsOfWrongLength(list<string> & wordList, int acceptableLength) {
+    list <string>::iterator iter;
+    iter = wordList.begin();
+    while (iter != wordList.end()) {
+        if (iter->length() != acceptableLength) {
+            iter = wordList.erase(iter);
+        } else {
+            iter++;
+        }
+    }
+}
+
 void displayList(const list<string> & wordList) {
     for (list<string>::const_iterator it = wordList.begin();
          it != wordList.end();
@@ -38,5 +50,12 @@ void displayList(const list<string> & wordList) {
 }
 
 int main() {
-    displayList(readWordFile("wordList.txt"));
+    list<string> wordList = readWordFile("wordList.txt");
+    const int wordLength = 8;
+
+    cout << "List before: " << '\n';
+    displayList(wordList);
+    removeWordsOfWrongLength(wordList, wordLength);
+    cout << "\nList after: " << '\n';
+    displayList(wordList);
 }
