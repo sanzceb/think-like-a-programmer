@@ -54,6 +54,33 @@ void removeWordsOfWrongLength(list<string> & wordList, int acceptableLength) {
     }
 }
 
+bool numberInPattern(const list <int> & pattern, int number) {
+    list<int>::const_iterator iter;
+    iter = pattern.begin();
+    while (iter != pattern.end()) {
+        if (*iter == number) {
+            return true;
+        }
+        iter++;
+    }
+    return false;
+}
+
+bool matchesPattern(string word, char letter, list<int> pattern) {
+    for (int i = 0; i < word.length(); i++) {
+        if (word[i] == letter) {
+            if (!numberInPattern(pattern, i)) {
+                return false;
+            }
+        } else {
+            if (numberInPattern(pattern, i)) {
+                return false;
+            }
+        }
+    }
+    return true;
+}
+
 
 void displayGuessedLetters(bool letters[26]) {
     cout << "Letters guessed: ";
