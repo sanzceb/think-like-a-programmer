@@ -109,6 +109,32 @@ void mostFreqPatternByLetter(list<string> wordList, char letter,
     list<int> & maxPattern,
     int & maxPatternCount) {
     removeWordsWithoutLetter(wordList, letter);
+    list<string>::iterator iter;
+    maxPatternCount = 0;
+    while (wordList.size() > 0) {
+        iter = wordList.begin();
+        list<int> currentPattern;
+        for (int i = 0; i < iter->length(); i++) {
+            if ((*iter)[i] == letter) {
+                currentPattern.push_back(i);
+            }
+        }
+        int currentPatternCount = 1;
+        iter = wordList.erase(iter);
+        while (iter != wordList.end()) {
+            if (matchesPattern(*iter, letter, currentPattern)) {
+                currentPatternCount++;
+                iter = wordList.erase(iter);
+            } else {
+                iter++;
+            }
+        }
+        if (currentPatternCount > maxPatternCount) {
+            maxPatternCount = currentPatternCount;
+            maxPattern = currentPattern;
+        }
+        currentPattern.clear();
+    }
 } 
 void displayGuessedLetters(bool letters[26]) {
     cout << "Letters guessed: ";
