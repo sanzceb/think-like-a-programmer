@@ -41,6 +41,14 @@ void removeWordsOfWrongLength(list<string> & wordList, int acceptableLength) {
     }
 }
 
+void displayGuessedLetters(bool letters[26]) {
+    cout << "Letters guessed: ";
+    for (int i = 0; i < 26; i++) {
+       if (letters[i]) cout << (char)('a' + i) << " ";
+    }
+    cout << '\n';
+}
+
 void displayList(const list<string> & wordList) {
     for (list<string>::const_iterator it = wordList.begin();
          it != wordList.end();
@@ -52,10 +60,13 @@ void displayList(const list<string> & wordList) {
 int main() {
     list<string> wordList = readWordFile("wordList.txt");
     const int wordLength = 8;
+    bool guessedLetters[26]; 
+    for (int i = 0; i < 26; i++) guessedLetters[i] = false;
 
     cout << "List before: " << '\n';
     displayList(wordList);
     removeWordsOfWrongLength(wordList, wordLength);
     cout << "\nList after: " << '\n';
     displayList(wordList);
+    displayGuessedLetters(guessedLetters);
 }
