@@ -54,6 +54,30 @@ void removeWordsOfWrongLength(list<string> & wordList, int acceptableLength) {
     }
 }
 
+void removeWordsWithoutLetter(list<string> & wordList, char requiredLetter) {
+    list<string>::iterator iter;
+    iter = wordList.begin();
+    while (iter != wordList.end()) {
+        if (iter->find(requiredLetter) == string::npos){
+            iter = wordList.erase(iter);
+        } else {
+            iter++;
+        }
+    }
+}
+
+void removeWordsWithLetter(list<string> & wordList, char forbiddenLetter) {
+    list<string>::iterator iter;
+    iter = wordList.begin();
+    while (iter != wordList.end()) {
+        if (iter->find(forbiddenLetter) != string::npos) {
+            iter = wordList.erase(iter);
+        } else {
+            iter++;
+        }
+    }
+}
+
 bool numberInPattern(const list <int> & pattern, int number) {
     list<int>::const_iterator iter;
     iter = pattern.begin();
@@ -81,7 +105,11 @@ bool matchesPattern(string word, char letter, list<int> pattern) {
     return true;
 }
 
-
+void mostFreqPatternByLetter(list<string> wordList, char letter,
+    list<int> & maxPattern,
+    int & maxPatternCount) {
+    removeWordsWithoutLetter(wordList, letter);
+} 
 void displayGuessedLetters(bool letters[26]) {
     cout << "Letters guessed: ";
     for (int i = 0; i < 26; i++) {
@@ -91,10 +119,11 @@ void displayGuessedLetters(bool letters[26]) {
 }
 
 void displayList(const list<string> & wordList) {
-    for (list<string>::const_iterator it = wordList.begin();
-         it != wordList.end();
-         it++) {
-        cout << it->c_str() << std::endl;
+    list<string>::const_iterator iter;
+    iter = wordList.begin();
+    while (iter != wordList.end()) {
+        cout << iter->c_str() << std::endl;
+        iter++;
     }
 }
 
