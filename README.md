@@ -71,6 +71,7 @@ V. Anton Spraul.
   - [x] 7.7 Student Attributes with Standard Library
   - [x] 7.8 Design your own: Text Replacer using standard library
 - [ ] Chapter 8: Thinking Like a Programmer
+  - [] 8.1: Improved Hangman
 
 ## About me
 
