@@ -112,7 +112,6 @@ void wordList::removeWordsOfWrongLength(int acceptableLength) {
     }
 }
 
-//TODO make the method not modify the internal _wordList
 void wordList::mostFreqPatternByLetter(char letter, list<int> &maxPattern,
     int &maxPatternCount) {
     maxPatternCount = 0;
