@@ -6,32 +6,20 @@ using std::ifstream;
 #include <string>
 using std::string;
 #include <cstring>
+#include <vector>
+using std::vector;
 
 #include "word_list.h"
 
-static bool numberInPattern(const list <int> & pattern, int number) {
-    list<int>::const_iterator iter;
-    iter = pattern.begin();
-    while (iter != pattern.end()) {
-        if (*iter == number) {
-            return true;
-        }
-        iter++;
-    }
-    return false;
-}
-
-static bool matchesPattern(string word, char letter, const list<int> & pattern) {
+static bool matchesPattern(string word, char letter,
+    const vector<bool> & pattern) {
     for (int i = 0; i < word.length(); i++) {
         if (word[i] == letter) {
-            if (!numberInPattern(pattern, i)) {
+            if (!pattern[i]) {
                 return false;
             }
-        }
-        else {
-            if (numberInPattern(pattern, i)) {
-                return false;
-            }
+        } else if (pattern[i]) {
+            return false;
         }
     }
     return true;
@@ -112,7 +100,7 @@ void wordList::removeWordsOfWrongLength(int acceptableLength) {
     }
 }
 
-void wordList::mostFreqPatternByLetter(char letter, list<int> &maxPattern,
+void wordList::mostFreqPatternByLetter(char letter, vector<bool> &maxPattern,
     int &maxPatternCount) {
     maxPatternCount = 0;
     list<string> wordListCopy = _wordList;
@@ -120,11 +108,10 @@ void wordList::mostFreqPatternByLetter(char letter, list<int> &maxPattern,
     list<string>::iterator iter;
     while (wordListCopy.size() > 0) {
         iter = wordListCopy.begin();
-        list<int> currentPattern;
+        vector<bool> currentPattern;
+        currentPattern.reserve(iter->length());
         for (int i = 0; i < iter->length(); i++) {
-            if ((*iter)[i] == letter) {
-                currentPattern.push_back(i);
-            }
+            currentPattern.push_back((*iter)[i] == letter);
         }
         int currentPatternCount = 1;
         iter = wordListCopy.erase(iter);
@@ -144,7 +131,7 @@ void wordList::mostFreqPatternByLetter(char letter, list<int> &maxPattern,
     }
 }
 
-void wordList::removeWordsWithPattern(char letter, list<int> pattern) {
+void wordList::removeWordsWithPattern(char letter, vector<bool> pattern) {
     list<string>::iterator iter;
     iter = _wordList.begin();
     while(iter != _wordList.end()) {

@@ -2,6 +2,8 @@
 using std::string;
 #include <list>
 using std::list;
+#include <vector>
+using std::vector;
 
 #ifndef WORD_LIST_H
 #define WORD_LIST_H
@@ -12,8 +14,8 @@ public:
     int countWordsWithoutLetter(char letter);
     void removeWordsWithLetter(char letter);
     void removeWordsOfWrongLength(int acceptableLength);
-    void removeWordsWithPattern(char nextLetter, list<int> nextPattern);
-    void mostFreqPatternByLetter(char letter, list<int> & maxPattern,
+    void removeWordsWithPattern(char nextLetter, vector<bool> nextPattern);
+    void mostFreqPatternByLetter(char letter, vector<bool> & maxPattern,
     int & maxPatternCount);
     void displayWordList();
     string first();

@@ -2,6 +2,8 @@
 using std::cout;
 #include <string>
 using std::string;
+#include <vector>
+using std::vector;
 
 #include "hangman_game.h"
 #include "word_list.h"
@@ -25,22 +27,26 @@ hangmanGame::hangmanGame(string filename) : _wordList(filename) {
     _wordList.removeWordsOfWrongLength(_wordLength);
 }
 
+void hangmanGame::revealLetter(vector<bool> &nextPattern, char letter) {
+    for (int i = 0; i < nextPattern.size(); i++) {
+        if (nextPattern[i]){
+            _discoveredLetterCount++;
+            _revealedWord[i] = letter;
+        }
+    }
+}
+
 void hangmanGame::guessLetter(char letter) {
     _guessedLetters[letter - 'a'] = true;
     int missingCount = _wordList.countWordsWithoutLetter(letter);
-    list<int> nextPattern;
+    vector<bool> nextPattern;
     int nextPatternCount;
     _wordList.mostFreqPatternByLetter(letter, nextPattern, nextPatternCount);
     if (missingCount > nextPatternCount) {
         _wordList.removeWordsWithLetter(letter);
         _misses++;
     } else {
-        list<int>::iterator iter = nextPattern.begin();
-        while (iter != nextPattern.end()) {
-            _discoveredLetterCount++;
-            _revealedWord[*iter] = letter;
-            iter++;
-        }
+        revealLetter(nextPattern, letter);
         _wordList.removeWordsWithPattern(letter, nextPattern);
     }
 }

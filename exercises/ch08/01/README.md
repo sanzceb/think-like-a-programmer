@@ -27,6 +27,7 @@ better than mine.
 - Minor changes to adapt to modern C++
 - Implement the class HangmanGame
 - Simplify the main method as much as possible.
+- Pattern matching has been simplified.
 
 ### Missing functionality
 

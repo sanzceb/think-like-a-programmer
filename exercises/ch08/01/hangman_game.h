@@ -22,5 +22,7 @@ private:
     string _revealedWord;
     int _discoveredLetterCount;
     int _misses;
+
+    void revealLetter(vector<bool> &nextPattern, char letter);
 };
 #endif
