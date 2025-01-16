@@ -47,20 +47,13 @@ static list<string> readWordFile(string filename) {
     return wordList;
 }
 
-static void removeWordsWithoutLetter(list<string> & wordList, char letter) {
-    list<string>::iterator iter;
-    iter = wordList.begin();
-    while (iter != wordList.end()) {
-        if (iter->find(letter) == string::npos){
-            iter = wordList.erase(iter);
-        } else {
-            iter++;
-        }
-    }
-}
 
 wordList::wordList(string filename) {
     _wordList = readWordFile(filename);
+}
+
+wordList::wordList(const wordList & original) {
+    _wordList = original._wordList;
 }
 
 int wordList::countWordsWithoutLetter(char letter) {
@@ -74,6 +67,18 @@ int wordList::countWordsWithoutLetter(char letter) {
         iter++;
     }
     return count; 
+}
+
+void wordList::removeWordsWithoutLetter(char letter) {
+    list<string>::iterator iter;
+    iter = _wordList.begin();
+    while (iter != _wordList.end()) {
+        if (iter->find(letter) == string::npos){
+            iter = _wordList.erase(iter);
+        } else {
+            iter++;
+        }
+    }
 }
 
 void wordList::removeWordsWithLetter(char letter) {
@@ -103,22 +108,23 @@ void wordList::removeWordsOfWrongLength(int acceptableLength) {
 void wordList::mostFreqPatternByLetter(char letter, vector<bool> &maxPattern,
     int &maxPatternCount) {
     maxPatternCount = 0;
-    list<string> wordListCopy = _wordList;
-    removeWordsWithoutLetter(wordListCopy, letter);
+    wordList wordListCopy(*this);
+    wordListCopy.removeWordsWithoutLetter(letter);
+    list<string> _wordListCopy = wordListCopy._wordList;
     list<string>::iterator iter;
-    while (wordListCopy.size() > 0) {
-        iter = wordListCopy.begin();
+    while (_wordListCopy.size() > 0) {
+        iter = _wordListCopy.begin();
         vector<bool> currentPattern;
         currentPattern.reserve(iter->length());
         for (int i = 0; i < iter->length(); i++) {
             currentPattern.push_back((*iter)[i] == letter);
         }
         int currentPatternCount = 1;
-        iter = wordListCopy.erase(iter);
-        while (iter != wordListCopy.end()) {
+        iter = _wordListCopy.erase(iter);
+        while (iter != _wordListCopy.end()) {
             if (matchesPattern(*iter, letter, currentPattern)) {
                 currentPatternCount++;
-                iter = wordListCopy.erase(iter);
+                iter = _wordListCopy.erase(iter);
             } else {
                 iter++;
             }

@@ -10,9 +10,11 @@ using std::vector;
 class wordList {
 public:
     wordList(string filename);
+    wordList(const wordList &);
 
     int countWordsWithoutLetter(char letter);
     void removeWordsWithLetter(char letter);
+    void removeWordsWithoutLetter(char letter);
     void removeWordsOfWrongLength(int acceptableLength);
     void removeWordsWithPattern(char nextLetter, vector<bool> nextPattern);
     void mostFreqPatternByLetter(char letter, vector<bool> & maxPattern,
