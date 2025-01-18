@@ -19,9 +19,7 @@ the likelihood of Player 2 winning is small.
 Write a complete implementation for the cheating hangman problem that’s
 better than mine.
 
-## Analysis
-
-### Design Improvements
+## Design Improvements
 
 - Make the word list a class.
 - Minor changes to adapt to modern C++
@@ -29,10 +27,32 @@ better than mine.
 - Simplify the main method as much as possible.
 - Pattern matching has been simplified.
 
-### Missing functionality
+## New Functionality
 
-- Allow the user to specify the size of the puzzle word.
-- Allow the user to specify the maximum number of wrong guesses.
+### 8.1.1 Allow the user to set the difficulty of the game
+
+- The user can specify the size of the puzzle within a limited range. The
+range will be defined by the program based on the list of words. The program
+will validate the user input and ask again if such input is out of range.
+
+- I implement state tracking to ensure that the difficulty is set before
+the game starts.
+
+```mermaid
+stateDiagram-v2
+[*] --> Setup
+Setup --> Setup : setDifficulty (invalid)
+Setup --> Running : setDifficulty
+Running --> Running: guessLetter
+Running --> End: guessLetter 
+note left of Running
+(misses <= maxMisses)
+and  (discovered letters < wordLength)
+end note
+```
+
+## To be implemented
+
 - Check whether the guessed letter has been guessed before.
 - Check that the input is in lower case.
 - Display the number of misses available.

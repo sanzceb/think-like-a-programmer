@@ -10,21 +10,12 @@ using std::vector;
 
 
 hangmanGame::hangmanGame(string filename) : _wordList(filename) {
-    _maxMisses = 9;
-    _wordLength = 8;
+    _gameState = SETUP;
     _discoveredLetterCount = 0;
     _misses = 0;
-
-    _revealedWord.reserve(_wordLength);
-    for (int i = 0; i < _wordLength; i++) {
-        _revealedWord.push_back('*');
-    }
-
     for (int i = 0; i < GUESSED_LETTERS_SIZE; i++) {
          _guessedLetters[i] = false;
     }
-
-    _wordList.removeWordsOfWrongLength(_wordLength);
 }
 
 void hangmanGame::revealLetter(vector<bool> &nextPattern, char letter) {
@@ -37,6 +28,7 @@ void hangmanGame::revealLetter(vector<bool> &nextPattern, char letter) {
 }
 
 void hangmanGame::guessLetter(char letter) {
+    if (_gameState != RUNNING) return;
     _guessedLetters[letter - 'a'] = true;
     int missingCount = _wordList.countWordsWithoutLetter(letter);
     vector<bool> nextPattern;
@@ -48,6 +40,9 @@ void hangmanGame::guessLetter(char letter) {
     } else {
         revealLetter(nextPattern, letter);
         _wordList.removeWordsWithPattern(letter, nextPattern);
+    }
+    if (isRunning() == false) {
+        _gameState = END;
     }
 }
 
@@ -75,4 +70,47 @@ void hangmanGame::displaySolution() {
 
 bool hangmanGame::isRunning() {
     return _discoveredLetterCount < _wordLength && _misses < _maxMisses;
+}
+
+bool hangmanGame::isValidLength(int wordLength) {
+    pair <int, int> sizeRange = _wordList.sizeRange();
+    return sizeRange.first <= wordLength &&
+        sizeRange.second >= wordLength;
+}
+
+bool hangmanGame::setMisses(int misses) {
+    if (misses < 0) return false;
+    _maxMisses = misses;
+    return true;
+}
+
+bool hangmanGame::setWordLength(int wordLength) {
+    if (!isValidLength(wordLength)) {
+        return false;
+    } 
+    _wordLength = wordLength;
+    _revealedWord.reserve(_wordLength);
+    for (int i = 0; i < _wordLength; i++) {
+        _revealedWord.push_back('*');
+    }
+    _wordList.removeWordsOfWrongLength(_wordLength);
+    return true;
+}
+
+bool hangmanGame::setDifficulty(int misses, int wordLength) {
+    bool inputValid = true;
+    if (!setMisses(misses)) {
+        cout << "Number of tries is invalid.\n";
+        inputValid =  false;
+    } 
+    if (!setWordLength(wordLength)) {
+        cout << "I do not know words of such size!\n";
+        inputValid = false;
+    }
+    if (!inputValid) {
+        cout << "Please try again!\n";
+        return false;
+    }
+    _gameState = RUNNING;
+    return true;
 }

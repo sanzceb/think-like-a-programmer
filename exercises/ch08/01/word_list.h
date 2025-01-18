@@ -4,6 +4,8 @@ using std::string;
 using std::list;
 #include <vector>
 using std::vector;
+#include <tuple>
+using std::pair;
 
 #ifndef WORD_LIST_H
 #define WORD_LIST_H
@@ -11,6 +13,8 @@ class wordList {
 public:
     wordList(string filename);
     wordList(const wordList &);
+    //Returns a tuple with the minimum and maximum word size
+    pair<int, int> sizeRange();
 
     int countWordsWithoutLetter(char letter);
     void removeWordsWithLetter(char letter);
@@ -23,5 +27,6 @@ public:
     string first();
 private : 
     list<string> _wordList;
+    pair <int, int> _sizeRange;
 };
 #endif

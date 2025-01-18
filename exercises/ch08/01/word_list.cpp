@@ -25,8 +25,8 @@ static bool matchesPattern(string word, char letter,
     return true;
 }
 
-static list<string> readWordFile(string filename) {
-    list<string> wordList;
+static void readWordFile(string filename, list<string> & wordList, 
+    pair<int, int> & sizeRange) {
     // ios::in -> open for reading
     ifstream wordFile(filename, ios::in);
     // Modern C++ does not do implicit conversion to void *
@@ -34,28 +34,40 @@ static list<string> readWordFile(string filename) {
     //if(wordFile == NULL) is not allowed in strict compilers
     if (!wordFile) {
         cout << "File open failed. \n";
-        return wordList;
+        return;
     }
     char currentWord[30];
+    int minSize = INT_MAX, maxSize = -1;
     while (wordFile >> currentWord) {
         //if (word does not include '\')
         if (strchr(currentWord, '\'') == 0) {
             string temp(currentWord);
+            int tempSize = temp.size();
             wordList.push_back(temp);
+            if (tempSize < minSize) {
+                minSize = tempSize; 
+            }
+            if (tempSize > maxSize) {
+                maxSize = tempSize;
+            }
         }
     }
-    return wordList;
+    sizeRange = std::make_pair(minSize, maxSize);
 }
 
 
 wordList::wordList(string filename) {
-    _wordList = readWordFile(filename);
+    readWordFile(filename, _wordList, _sizeRange);
 }
 
 wordList::wordList(const wordList & original) {
     _wordList = original._wordList;
+    _sizeRange = original._sizeRange;
 }
 
+pair<int, int> wordList::sizeRange() {
+    return _sizeRange;
+}
 int wordList::countWordsWithoutLetter(char letter) {
     list <string>::const_iterator iter;
     int count = 0;
