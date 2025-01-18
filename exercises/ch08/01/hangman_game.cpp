@@ -59,7 +59,7 @@ void hangmanGame::displayRevealedWord() {
 }
 
 void hangmanGame::displaySolution() {
-    if (_misses == _maxMisses) {
+    if (_misses > _maxMisses) {
         cout << "Sorry. You lost. The word I was thinking of was '";
         cout << _wordList.first().c_str() << "'.\n";
     } else if (_discoveredLetterCount == _wordLength) {
