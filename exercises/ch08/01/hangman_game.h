@@ -13,6 +13,7 @@ public:
     void displaySolution();
     bool isRunning();
     bool setDifficulty(int misses, int wordLength);
+    int availableMisses();
 private:
     enum state {
         SETUP,

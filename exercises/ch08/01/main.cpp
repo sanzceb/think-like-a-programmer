@@ -25,6 +25,7 @@ int main() {
         hangmanGame.guessLetter(nextLetter);
         hangmanGame.displayRevealedWord();
         hangmanGame.displayGuessedLetters();
+	cout << "\nMisses available: " << hangmanGame.availableMisses();
     }
     hangmanGame.displaySolution();
     return 0;

@@ -114,3 +114,8 @@ bool hangmanGame::setDifficulty(int misses, int wordLength) {
     _gameState = RUNNING;
     return true;
 }
+
+int hangmanGame::availableMisses() {
+    return _maxMisses - _misses;
+}
+

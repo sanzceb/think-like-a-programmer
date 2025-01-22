@@ -51,11 +51,18 @@ and  (discovered letters < wordLength)
 end note
 ```
 
+### 8.1.2 Display the number of misses available
+
+- The method `availableMisses()` has been added.
+- This value is displayed to the player at the beginning of each turn.
+
 ## To be implemented
 
 - Check whether the guessed letter has been guessed before.
 - Check that the input is in lower case.
-- Display the number of misses available.
 - Offer the user to play again.
 
 ## Current Issues
+
+- Create a class to be the view for the user.
+- Extract the `cout` statements from the class `hangman_game`
