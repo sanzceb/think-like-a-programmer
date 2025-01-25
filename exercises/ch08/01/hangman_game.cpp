@@ -4,10 +4,20 @@ using std::cout;
 using std::string;
 #include <vector>
 using std::vector;
+#include <forward_list>
+using std::forward_list;
 
 #include "hangman_game.h"
 #include "word_list.h"
 
+hangmanGame::hangmanGame() : _wordList("") {
+    _gameState = SETUP;
+    _discoveredLetterCount = 0;
+    _misses = 0;
+    for (int i = 0; i < GUESSED_LETTERS_SIZE; i++) {
+         _guessedLetters[i] = false;
+    }
+}
 
 hangmanGame::hangmanGame(string filename) : _wordList(filename) {
     _gameState = SETUP;
@@ -46,36 +56,40 @@ void hangmanGame::guessLetter(char letter) {
     }
 }
 
-void hangmanGame::displayGuessedLetters() {
-    cout << "Letters guessed: ";
+forward_list<char> hangmanGame::guessedLetters() {
+    forward_list<char> guessedLetters;
     for (int i = 0; i < GUESSED_LETTERS_SIZE; i++) {
-       if (_guessedLetters[i]) cout << (char)('a' + i) << " ";
+       if (_guessedLetters[i]) {
+	  guessedLetters.push_front((char)('a' + i));
+       }
     }
-    cout << '\n';
+    return guessedLetters;
 }
 
-void hangmanGame::displayRevealedWord() {
-        cout << "Word so far: " << _revealedWord << "\n";
+string hangmanGame::revealedWord() {
+    return _revealedWord;
 }
 
-void hangmanGame::displaySolution() {
-    if (_misses > _maxMisses) {
-        cout << "Sorry. You lost. The word I was thinking of was '";
-        cout << _wordList.first().c_str() << "'.\n";
-    } else if (_discoveredLetterCount == _wordLength) {
-        cout << "Great job. You win. Word was '" << _revealedWord << "'.\n";
+string hangmanGame::solution() {
+    if (isOver()) {
+	return _wordList.first();
+    } else {
+	return _revealedWord;
     }
+}
 
+bool hangmanGame::isOver() {
+    return _misses > _maxMisses;
 }
 
 bool hangmanGame::isRunning() {
     return _discoveredLetterCount < _wordLength && _misses < _maxMisses;
 }
 
-bool hangmanGame::isValidLength(int wordLength) {
+bool hangmanGame::isValidLen(int wordLen) {
     pair <int, int> sizeRange = _wordList.sizeRange();
-    return sizeRange.first <= wordLength &&
-        sizeRange.second >= wordLength;
+    return sizeRange.first <= wordLen &&
+        sizeRange.second >= wordLen;
 }
 
 bool hangmanGame::setMisses(int misses) {
@@ -84,33 +98,17 @@ bool hangmanGame::setMisses(int misses) {
     return true;
 }
 
-bool hangmanGame::setWordLength(int wordLength) {
-    if (!isValidLength(wordLength)) {
+bool hangmanGame::setWordLen(int wordLen) {
+    if (!isValidLen(wordLen)) {
         return false;
     } 
-    _wordLength = wordLength;
-    _revealedWord.reserve(_wordLength);
-    for (int i = 0; i < _wordLength; i++) {
+    _wordLen = wordLen;
+    _revealedWord.reserve(_wordLen);
+    for (int i = 0; i < _wordLen; i++) {
         _revealedWord.push_back('*');
     }
-    _wordList.removeWordsOfWrongLength(_wordLength);
-    return true;
-}
-
-bool hangmanGame::setDifficulty(int misses, int wordLength) {
-    bool inputValid = true;
-    if (!setMisses(misses)) {
-        cout << "Number of tries is invalid.\n";
-        inputValid =  false;
-    } 
-    if (!setWordLength(wordLength)) {
-        cout << "I do not know words of such size!\n";
-        inputValid = false;
-    }
-    if (!inputValid) {
-        cout << "Please try again!\n";
-        return false;
-    }
+    _wordList.removeWordsOfWrongLength(_wordLen);
+    //TODO implement state Pattern and remove
     _gameState = RUNNING;
     return true;
 }

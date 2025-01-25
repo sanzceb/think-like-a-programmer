@@ -56,6 +56,12 @@ end note
 - The method `availableMisses()` has been added.
 - This value is displayed to the player at the beginning of each turn.
 
+### 8.1.3 User interface decoupled from the game logic
+
+A new class `hangmanUi` has been created to deal with the UI logic and
+remove such logic from the game class and from the main function, and
+to facilitate the future implementation of a graph user interface.
+
 ## To be implemented
 
 - Check whether the guessed letter has been guessed before.
@@ -64,5 +70,6 @@ end note
 
 ## Current Issues
 
-- Create a class to be the view for the user.
-- Extract the `cout` statements from the class `hangman_game`
+- Bug: available misses is shown as -1 when the game ends
+- Bug: When setting the difficulty, there is an infinite loop
+if the input is bad
