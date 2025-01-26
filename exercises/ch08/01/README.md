@@ -40,10 +40,10 @@ the game starts.
 
 ```mermaid
 stateDiagram-v2
-[*] --> Setup
-Setup --> Setup : setDifficulty (invalid)
-Setup --> Running : setDifficulty
-Running --> Running: guessLetter
+[*] --> misses setup
+misses setup --> word length setup : setMisses 
+word length setup --> setup ready: setWordLen
+setup ready --> Running
 Running --> End: guessLetter 
 note left of Running
 (misses <= maxMisses)
