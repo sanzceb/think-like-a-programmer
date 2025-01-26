@@ -11,21 +11,11 @@ using std::forward_list;
 #include "word_list.h"
 
 hangmanGame::hangmanGame() : _wordList("") {
-    _gameState = MISSES_SETUP;
-    _discoveredLetterCount = 0;
-    _misses = 0;
-    for (int i = 0; i < GUESSED_LETTERS_SIZE; i++) {
-         _guessedLetters[i] = false;
-    }
+    init();
 }
 
 hangmanGame::hangmanGame(string filename) : _wordList(filename) {
-    _gameState = MISSES_SETUP;
-    _discoveredLetterCount = 0;
-    _misses = 0;
-    for (int i = 0; i < GUESSED_LETTERS_SIZE; i++) {
-         _guessedLetters[i] = false;
-    }
+    init();
 }
 
 void hangmanGame::revealLetter(vector<bool> &nextPattern, char letter) {
@@ -120,13 +110,31 @@ int hangmanGame::availableMisses() {
 }
 
 void hangmanGame::updateState() {
-    if (_gameState == MISSES_SETUP) {
-        _gameState = WORD_LEN_SETUP;
-    } else if (_gameState == WORD_LEN_SETUP) {
-        _gameState = RUNNING;
-    } else if (_gameState == RUNNING
-            && !isRunning()) {
-        _gameState = END;
+    switch (_gameState) {
+        case MISSES_SETUP:
+            _gameState = WORD_LEN_SETUP;
+            break;
+        case WORD_LEN_SETUP:
+            _gameState = RUNNING;
+            break;
+        case RUNNING:
+            if (!isRunning())
+                _gameState = END;
+            break;
+        case END:
+            break;
     }
 }
 
+void hangmanGame::resetGame() {
+    init();
+}
+
+void hangmanGame::init() {
+    _gameState = MISSES_SETUP;
+    _discoveredLetterCount = 0;
+    _misses = 0;
+    for (int i = 0; i < GUESSED_LETTERS_SIZE; i++) {
+         _guessedLetters[i] = false;
+    }
+}

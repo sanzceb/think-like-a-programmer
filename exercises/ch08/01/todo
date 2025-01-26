@@ -1,0 +1,14 @@
+- [] Implement State Pattern
+ - [x] Add a new state to implement the game setup
+ - [x] MISSES_SETUP -> WORD_LEN_SETUP -> SETUP_READY -> RUNNING -> END
+ - [x] Define states
+ - [x] Transition MISSES -> LENGTH when set misses is correct
+ - [x] Transition WORD_LEN_SETUP -> RUNNING when method run is called.
+ - [] Implement updateState?
+- [] Testing 
+- [] Test setup works as expected
+  - [x] Test bad misses
+  - [x] Test bad length
+  - [] BUG when strings are passed
+  - [] BUG Letter count increased when entering repeated letters
+- [] Test game runs and ends properly
