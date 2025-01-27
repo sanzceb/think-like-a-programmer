@@ -83,7 +83,7 @@ bool hangmanGame::isOver() {
 }
 
 bool hangmanGame::isRunning() {
-    return _discoveredLetterCount < _wordLength && _misses < _maxMisses;
+    return _discoveredLetterCount < _wordLen && _misses <= _maxMisses;
 }
 
 bool hangmanGame::isValidLen(int wordLen) {

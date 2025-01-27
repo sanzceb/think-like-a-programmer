@@ -70,6 +70,5 @@ to facilitate the future implementation of a graph user interface.
 
 ## Current Issues
 
-- Bug: available misses is shown as -1 when the game ends
 - Bug: When setting the difficulty, there is an infinite loop
 if the input is bad

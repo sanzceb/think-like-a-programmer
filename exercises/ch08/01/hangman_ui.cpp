@@ -25,7 +25,7 @@ void hangmanUI::displayGuessedLetters() {
 }
 
 void hangmanUI::displayRevealedWord() {
-    cout << "\nWord so far: " << _game.revealedWord() << "\n";
+    cout << "\nWord so far: " << _game.revealedWord();
 }
 
 void hangmanUI::displaySolution() {
@@ -38,20 +38,22 @@ void hangmanUI::displaySolution() {
 }
 
 void hangmanUI::displayAvailableMisses() {
-    cout << "\nMisses available: " << _game.availableMisses();
+    if (_game.isRunning()) {
+        cout << "\nMisses available: " << _game.availableMisses();
+    }
 }
 
 void hangmanUI::readMisses() {
     int misses;
     bool missesSet;
     do {
-	cout << "\nNumber of misses: ";
-	cin >> misses;
-	cin.ignore();
-	missesSet = _game.setMisses(misses);
-	if (!missesSet) {
-	    cout << "Number of tries is invalid.\n";
-	}
+        cout << "\nNumber of misses: ";
+        cin >> misses;
+        cin.ignore();
+        missesSet = _game.setMisses(misses);
+        if (!missesSet) {
+            cout << "Number of tries is invalid.\n";
+        }
     } while (!missesSet);
 }
 
@@ -61,11 +63,11 @@ void hangmanUI::readWordLen() {
     do {
         cout << "\nLength of the word: ";
         cin >> wordLen;
-	cin.ignore();
-	lenSet = _game.setWordLen(wordLen);
-	if (!lenSet) {
-            cout << "I do not know words of such size!\n";
-	}
+        cin.ignore();
+        lenSet = _game.setWordLen(wordLen);
+        if (!lenSet) {
+            cout << "\nI do not know words of such size!";
+    }
     } while (!lenSet);
 }
 
@@ -75,15 +77,14 @@ void hangmanUI::start() {
     cout << "Choose the difficulty: ";
     readMisses();
     readWordLen();
-    displayRevealedWord();
     while (_game.isRunning()){
-        cout << "\nLetter to guess: ";
+        displayRevealedWord();
+        displayAvailableMisses();
+        displayGuessedLetters();
+        cout << "\n\nLetter to guess: ";
         cin >> nextLetter;
         cin.ignore();
         _game.guessLetter(nextLetter);
-        displayRevealedWord();
-        displayGuessedLetters();
-        displayAvailableMisses();
     }
     displaySolution();
 }
