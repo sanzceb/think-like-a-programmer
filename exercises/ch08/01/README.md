@@ -70,5 +70,5 @@ to facilitate the future implementation of a graph user interface.
 
 ## Current Issues
 
-- Bug: When setting the difficulty, there is an infinite loop
-if the input is bad
+- Remove the message 'File open Failed'.
+- Improve game output format.

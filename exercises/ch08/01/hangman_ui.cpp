@@ -1,10 +1,13 @@
 #include <iostream>
+using std::streamsize;
 using std::cout;
 using std::cin;
 #include <string>
 using std::string;
 #include <forward_list>
 using std::forward_list;
+#include <limits>
+using std::numeric_limits;
 
 #include "hangman_ui.h"
 
@@ -46,28 +49,42 @@ void hangmanUI::displayAvailableMisses() {
 void hangmanUI::readMisses() {
     int misses;
     bool missesSet;
+    streamsize maxSize = numeric_limits<streamsize>::max();
     do {
         cout << "\nNumber of misses: ";
         cin >> misses;
-        cin.ignore();
-        missesSet = _game.setMisses(misses);
-        if (!missesSet) {
-            cout << "Number of tries is invalid.\n";
+        if (cin.fail()) {
+            cin.clear();
+            missesSet = false;
+            cout << "Bad input!";
+        } else {
+            missesSet = _game.setMisses(misses);
+            if (!missesSet) {
+                cout << "Number of tries is invalid.";
+            }
         }
+        cin.ignore(maxSize, '\n');
     } while (!missesSet);
 }
 
 void hangmanUI::readWordLen() {
     int wordLen;
     bool lenSet;
+    streamsize maxSize = numeric_limits<streamsize>::max();
     do {
         cout << "\nLength of the word: ";
         cin >> wordLen;
-        cin.ignore();
-        lenSet = _game.setWordLen(wordLen);
-        if (!lenSet) {
-            cout << "\nI do not know words of such size!";
-    }
+        if (cin.fail()) {
+            cin.clear(); // Clear status
+            lenSet = false;
+            cout << "Bad input!";
+        } else {
+            lenSet = _game.setWordLen(wordLen);
+            if (!lenSet) {
+                cout << "I do not know words of such size!";
+            }
+        }
+        cin.ignore(maxSize, '\n'); //Clear bad input
     } while (!lenSet);
 }
 
