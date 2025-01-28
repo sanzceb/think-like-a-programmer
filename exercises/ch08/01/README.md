@@ -40,10 +40,10 @@ the game starts.
 
 ```mermaid
 stateDiagram-v2
-[*] --> Setup
-Setup --> Setup : setDifficulty (invalid)
-Setup --> Running : setDifficulty
-Running --> Running: guessLetter
+[*] --> misses setup
+misses setup --> word length setup : setMisses 
+word length setup --> setup ready: setWordLen
+setup ready --> Running
 Running --> End: guessLetter 
 note left of Running
 (misses <= maxMisses)
@@ -70,5 +70,5 @@ to facilitate the future implementation of a graph user interface.
 
 ## Current Issues
 
-- Bug: When setting the difficulty, there is an infinite loop
-if the input is bad
+- Remove the message 'File open Failed'.
+- Improve game output format.

@@ -5,7 +5,7 @@
 
 #include "word_list.h"
 
-class hangmanGame {
+class hangmanGame { 
 public:
     hangmanGame();
     hangmanGame(std::string filename);
@@ -22,7 +22,8 @@ public:
     int availableMisses();
 private:
     enum state {
-        SETUP,
+        MISSES_SETUP,
+        WORD_LEN_SETUP,
         RUNNING,
         END
     };
@@ -40,6 +41,7 @@ private:
 
     void revealLetter(vector<bool> &nextPattern, char letter);
     bool isValidLen(int wordLen);
+    void updateState();
 };
 
 #endif

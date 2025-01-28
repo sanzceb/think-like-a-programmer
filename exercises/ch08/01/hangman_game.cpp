@@ -11,7 +11,7 @@ using std::forward_list;
 #include "word_list.h"
 
 hangmanGame::hangmanGame() : _wordList("") {
-    _gameState = SETUP;
+    _gameState = MISSES_SETUP;
     _discoveredLetterCount = 0;
     _misses = 0;
     for (int i = 0; i < GUESSED_LETTERS_SIZE; i++) {
@@ -20,7 +20,7 @@ hangmanGame::hangmanGame() : _wordList("") {
 }
 
 hangmanGame::hangmanGame(string filename) : _wordList(filename) {
-    _gameState = SETUP;
+    _gameState = MISSES_SETUP;
     _discoveredLetterCount = 0;
     _misses = 0;
     for (int i = 0; i < GUESSED_LETTERS_SIZE; i++) {
@@ -51,9 +51,7 @@ void hangmanGame::guessLetter(char letter) {
         revealLetter(nextPattern, letter);
         _wordList.removeWordsWithPattern(letter, nextPattern);
     }
-    if (isRunning() == false) {
-        _gameState = END;
-    }
+    updateState();
 }
 
 forward_list<char> hangmanGame::guessedLetters() {
@@ -93,12 +91,17 @@ bool hangmanGame::isValidLen(int wordLen) {
 }
 
 bool hangmanGame::setMisses(int misses) {
+    if (_gameState != MISSES_SETUP) return false;
     if (misses < 0) return false;
     _maxMisses = misses;
+    updateState();
     return true;
 }
 
 bool hangmanGame::setWordLen(int wordLen) {
+    if (_gameState != WORD_LEN_SETUP) {
+        return false;
+    }
     if (!isValidLen(wordLen)) {
         return false;
     } 
@@ -108,12 +111,22 @@ bool hangmanGame::setWordLen(int wordLen) {
         _revealedWord.push_back('*');
     }
     _wordList.removeWordsOfWrongLength(_wordLen);
-    //TODO implement state Pattern and remove
-    _gameState = RUNNING;
+    updateState();
     return true;
 }
 
 int hangmanGame::availableMisses() {
     return _maxMisses - _misses;
+}
+
+void hangmanGame::updateState() {
+    if (_gameState == MISSES_SETUP) {
+        _gameState = WORD_LEN_SETUP;
+    } else if (_gameState == WORD_LEN_SETUP) {
+        _gameState = RUNNING;
+    } else if (_gameState == RUNNING
+            && !isRunning()) {
+        _gameState = END;
+    }
 }
 
