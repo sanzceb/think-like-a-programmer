@@ -65,6 +65,14 @@ wordList::wordList(const wordList & original) {
     _sizeRange = original._sizeRange;
 }
 
+wordList& wordList::operator=(const wordList & rhs) {
+    if (this != &rhs) {
+        _wordList = rhs._wordList;
+        _sizeRange = rhs._sizeRange;
+    }
+    return *this;
+}
+
 pair<int, int> wordList::sizeRange() {
     return _sizeRange;
 }
@@ -120,7 +128,7 @@ void wordList::removeWordsOfWrongLength(int acceptableLength) {
 void wordList::mostFreqPatternByLetter(char letter, vector<bool> &maxPattern,
     int &maxPatternCount) {
     maxPatternCount = 0;
-    wordList wordListCopy(*this);
+    wordList wordListCopy = *this;
     wordListCopy.removeWordsWithoutLetter(letter);
     list<string> _wordListCopy = wordListCopy._wordList;
     list<string>::iterator iter;

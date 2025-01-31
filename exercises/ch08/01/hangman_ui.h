@@ -5,10 +5,11 @@
 
 class hangmanUI {
 public:
-    hangmanUI(hangmanGame game);
+    hangmanUI(string filename);
+    ~hangmanUI();
     void start();
 private:
-    hangmanGame _game;
+    hangmanGame * _game;
 
     void readMisses();
     void readWordLen();

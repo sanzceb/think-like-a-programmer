@@ -15,6 +15,8 @@ public:
     wordList(const wordList &);
     //Returns a tuple with the minimum and maximum word size
     pair<int, int> sizeRange();
+    
+    wordList& operator=(const wordList &);
 
     int countWordsWithoutLetter(char letter);
     void removeWordsWithLetter(char letter);

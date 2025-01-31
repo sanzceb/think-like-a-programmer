@@ -11,13 +11,17 @@ using std::numeric_limits;
 
 #include "hangman_ui.h"
 
-hangmanUI::hangmanUI(hangmanGame game) {
-    _game = game;
+hangmanUI::hangmanUI(string filename) {
+    _game = new hangmanGame(filename);
+}
+
+hangmanUI::~hangmanUI() {
+    delete[] _game;
 }
 
 void hangmanUI::displayGuessedLetters() {
     forward_list<char>::const_iterator iter;
-    forward_list<char> gl = _game.guessedLetters();
+    forward_list<char> gl = _game->guessedLetters();
 
     cout << "\nLetters guessed:";
     iter = gl.begin();
@@ -28,21 +32,21 @@ void hangmanUI::displayGuessedLetters() {
 }
 
 void hangmanUI::displayRevealedWord() {
-    cout << "\nWord so far: " << _game.revealedWord();
+    cout << "\nWord so far: " << _game->revealedWord();
 }
 
 void hangmanUI::displaySolution() {
-    if (_game.isOver()) {
+    if (_game->isOver()) {
         cout << "\nSorry, you lost. The word I was thinking of was '";
-    } else if (!_game.isRunning()) {
+    } else if (!_game->isRunning()) {
         cout << "\nGreat job. You win. Word was '";
     }
-    cout << _game.solution().c_str() << "'.";
+    cout << _game->solution().c_str() << "'.";
 }
 
 void hangmanUI::displayAvailableMisses() {
-    if (_game.isRunning()) {
-        cout << "\nMisses available: " << _game.availableMisses();
+    if (_game->isRunning()) {
+        cout << "\nMisses available: " << _game->availableMisses();
     }
 }
 
@@ -58,7 +62,7 @@ void hangmanUI::readMisses() {
             missesSet = false;
             cout << "Bad input!";
         } else {
-            missesSet = _game.setMisses(misses);
+            missesSet = _game->setMisses(misses);
             if (!missesSet) {
                 cout << "Number of tries is invalid.";
             }
@@ -79,7 +83,7 @@ void hangmanUI::readWordLen() {
             lenSet = false;
             cout << "Bad input!";
         } else {
-            lenSet = _game.setWordLen(wordLen);
+            lenSet = _game->setWordLen(wordLen);
             if (!lenSet) {
                 cout << "I do not know words of such size!";
             }
@@ -94,14 +98,14 @@ void hangmanUI::start() {
     cout << "Choose the difficulty: ";
     readMisses();
     readWordLen();
-    while (_game.isRunning()){
+    while (_game->isRunning()){
         displayRevealedWord();
         displayAvailableMisses();
         displayGuessedLetters();
         cout << "\n\nLetter to guess: ";
         cin >> nextLetter;
         cin.ignore();
-        _game.guessLetter(nextLetter);
+        _game->guessLetter(nextLetter);
     }
     displaySolution();
 }

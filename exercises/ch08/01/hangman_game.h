@@ -7,13 +7,15 @@
 
 class hangmanGame { 
 public:
-    hangmanGame();
     hangmanGame(std::string filename);
-    void guessLetter(char letter);
+    ~hangmanGame();
+
+    hangmanGame& operator=(const hangmanGame&);
 
     bool setMisses(int misses);
     bool setWordLen(int wordLen);
 
+    void guessLetter(char letter);
     string revealedWord();
     string solution();
     std::forward_list<char> guessedLetters();
@@ -31,7 +33,7 @@ private:
     static const int GUESSED_LETTERS_SIZE = 26;
 
     state _gameState;
-    wordList _wordList;
+    wordList * _wordList;
     bool _guessedLetters[GUESSED_LETTERS_SIZE];
     int _maxMisses;
     int _wordLen;
@@ -42,6 +44,7 @@ private:
     void revealLetter(vector<bool> &nextPattern, char letter);
     bool isValidLen(int wordLen);
     void updateState();
+    void init();
 };
 
 #endif

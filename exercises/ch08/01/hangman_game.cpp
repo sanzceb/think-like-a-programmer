@@ -10,12 +10,20 @@ using std::forward_list;
 #include "hangman_game.h"
 #include "word_list.h"
 
-hangmanGame::hangmanGame() : _wordList("") {
+hangmanGame::hangmanGame(string filename) {
+    _wordList = new wordList(filename);
     init();
 }
 
-hangmanGame::hangmanGame(string filename) : _wordList(filename) {
-    init();
+hangmanGame::~hangmanGame() {
+    delete[] _wordList;
+}
+
+hangmanGame& operator=(const & rhs) {
+    if (this != &rhs) {
+        delete[] _wordList;
+        _wordList = rhs.wordList;
+    }
 }
 
 void hangmanGame::revealLetter(vector<bool> &nextPattern, char letter) {
@@ -30,16 +38,16 @@ void hangmanGame::revealLetter(vector<bool> &nextPattern, char letter) {
 void hangmanGame::guessLetter(char letter) {
     if (_gameState != RUNNING) return;
     _guessedLetters[letter - 'a'] = true;
-    int missingCount = _wordList.countWordsWithoutLetter(letter);
+    int missingCount = _wordList->countWordsWithoutLetter(letter);
     vector<bool> nextPattern;
     int nextPatternCount;
-    _wordList.mostFreqPatternByLetter(letter, nextPattern, nextPatternCount);
+    _wordList->mostFreqPatternByLetter(letter, nextPattern, nextPatternCount);
     if (missingCount > nextPatternCount) {
-        _wordList.removeWordsWithLetter(letter);
+        _wordList->removeWordsWithLetter(letter);
         _misses++;
     } else {
         revealLetter(nextPattern, letter);
-        _wordList.removeWordsWithPattern(letter, nextPattern);
+        _wordList->removeWordsWithPattern(letter, nextPattern);
     }
     updateState();
 }
@@ -60,7 +68,7 @@ string hangmanGame::revealedWord() {
 
 string hangmanGame::solution() {
     if (isOver()) {
-	return _wordList.first();
+	return _wordList->first();
     } else {
 	return _revealedWord;
     }
@@ -75,7 +83,7 @@ bool hangmanGame::isRunning() {
 }
 
 bool hangmanGame::isValidLen(int wordLen) {
-    pair <int, int> sizeRange = _wordList.sizeRange();
+    pair <int, int> sizeRange = _wordList->sizeRange();
     return sizeRange.first <= wordLen &&
         sizeRange.second >= wordLen;
 }
@@ -100,7 +108,7 @@ bool hangmanGame::setWordLen(int wordLen) {
     for (int i = 0; i < _wordLen; i++) {
         _revealedWord.push_back('*');
     }
-    _wordList.removeWordsOfWrongLength(_wordLen);
+    _wordList->removeWordsOfWrongLength(_wordLen);
     updateState();
     return true;
 }
@@ -124,10 +132,6 @@ void hangmanGame::updateState() {
         case END:
             break;
     }
-}
-
-void hangmanGame::resetGame() {
-    init();
 }
 
 void hangmanGame::init() {
