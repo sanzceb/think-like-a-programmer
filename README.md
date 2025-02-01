@@ -12,12 +12,13 @@ V. Anton Spraul.
 
 ## Repository Structure
 
-- `/exercises`: Solutions organized by chapter
+- `/exercises`: Solutions organized by chapter. Within each exercise there are
+solutions in C++. Some of the exercises might have also solutions in Java.
 
 ## Progress
 
 - [ ] Chapter 1: Problem-Solving Strategies (0 %)
-- [x] Chapter 2: Pure Puzzle (100 %)
+- [x] [Chapter 2: Pure Puzzle (100 %)](exercises/ch02/README.md)
 - [x] Chapter 3: Solving Problems with Arrays (100 %)
   - [x] 3.1 Sorting Students
   - [x] 3.2 Median Sales Finder

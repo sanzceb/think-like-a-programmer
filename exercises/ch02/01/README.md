@@ -12,20 +12,43 @@ space, or an end-of-line, write a program that produces the following shape:
     ##
 ```
 
-## Approach
+## Strategy
 
-I have broken down the problem into different parts:
+In order to use the reduction techniques of the book I solve the folling
+subproblems:
 
-* Print one single line of hashes.
-* Print a next line with 6 hashes wrapped by 4 spaces.
-* Print the line 4 times with a loop.
-* Create an inner loop with an algebraic expression that reduces the number of
-hashes.
+* Print a line of 8 hashes
+* Print a rectangle of 8x4 hashes.
+* Apply 'Counting down by Counting up' problem technique to find the algebraic
+expression of the number of hashes.
+* Apply 'Counting down by Counting up' problem technique to find the algebraic
+expression of the number of spaces.
 
-## Implementation Notes
+## Expression analysis
 
-* Inspired on the input processing example of the book, I have designed the
-expression of the inner loop using a symbols table.
-* The created expression `hashnum <= (10 - 2 * lineNum)` decreases the width
-of the hash line two on each step. I have chosen 10 to start the line number
-at 1
+### Number of hashes
+
+After some experimentation, I figured out that the expression that keeps the
+difference constant at 10 is row * -2:
+
+|Row|Desired Value|row * -2|Difference|
+|:-:|:-----------:|:------:|:--------:|
+|1|8|-2|10|
+|2|6|-4|10|
+|3|4|-6|10|
+|4|2|-8|10|
+
+The algebraic expression is `10 - 2 * row`.
+
+### Number of leading spaces
+
+The number of leading spaces must be one unit less than the row count.
+
+|Row|Desired Value|Difference|
+|:-:|:-----------:|:--------:|
+|1|0|1|
+|2|1|1|
+|3|2|1|
+|4|3|1|
+
+So the expression is `row -1`.
