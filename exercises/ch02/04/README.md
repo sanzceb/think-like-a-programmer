@@ -1,12 +1,14 @@
 # Exercise 2.3: [Output Patterns]
 
 ## Problem Statement
+
 Design your own: Think up your own symmetrical pattern of hash marks,
 and see whether you can write a program to produce it that follows the
 shapes rule.
 
 I have generated the following shape with AI
-```
+
+```txt
        ##        
      ######      
    ##########    
@@ -28,89 +30,119 @@ I have generated the following shape with AI
        ##
 ```
 
+## Strategy
 
-## Approach
+Application the reduction technique, we can break down this huge shape into
+smaller, manageable shapes.
 
-This figure can be broken down in different sub figures that can be solved using the shape rules:
+### The First Pyramid
 
-1. The first pyramid
-```
-       ##        (7 spaces, 2 hashes,  7 spaces)
-     ######      (5 spaces, 6 hashes,  5 spaces)
-   ##########    (3 spaces, 10 hashes, 3 spaces)
- ##############  (1 space , 14 hashes, 1 space)
-################ (16 hashes)
-```
-2.  The reverse pyramid:
-```
-################ (0 spaces, 16 hashes)
- ##############  (1 space , 14 hashes, 1 space)
-   ##########    (3 spaces, 10 hashes, 3 spaces)
-     ######      (4 spaces, 6 hashes,  4 spaces)
-       ##        (7 spaces, 2 hashes, 7 spaces)
-```
-3. The nested diamonds have 4 sub parts:
-```
-From line 6 to 7
-######    ###### (6 hashes, 4 spaces 6 hashes)
-####        #### (4 hashes, 8 spaces 4 hashes)
-
-From 8 to 10
-
-###   ####   ### (3 hashes, 3 spaces, 4 hashes, 3 spaces, 3 hashes)
-##   ######   ## (2 hashes, 3 spaces, 6 hashes, 3 spaces, 2 hashes)
-#   ########   # (1 hash,   3 spaces, 8 hashes, 3 spaces, 1 hash)
-
-From line 11 to 12
-
-##   ######   ## (2 hashes, 3 spaces, 6 hashes, 3 spaces, 2 hashes)
-###   ####   ### (3 hashes, 3 spaces, 4 hashes, 3 spaces, 3 hashes)
-
-From 13 to 14
-
-####        #### (4 hashes, 8 spaces, 4 hashes)
-######    ###### (6 hashes, 4 spaces, 6 hashes)
+```txt
+       ##
+     ######
+   ##########
+ ##############
 ```
 
-### Key Components
+Computation table:
 
-The algebraic expressions for each figure where n is the line number at each step:
+|Row|Spaces|Row * -2|Hashes|Row * 4|Difference
+|:-:|:----:|:------:|:----:|:-----:|:--------:
+|1|7|-2|2|4|2
+|2|5|-4|6|8|2
+|3|3|-6|10|12|2
+|4|1|-8|14|16|2
 
-The pyramid expressions (1 ≤ n ≤ 4):
-* Leading spaces: [9 - 2n]
-* Medium hashes: [4n - 2]
-* Trailing spaces: [9 - 2n]
+There is a fixed difference with row * -2 of 9 so an algebraic expression could
+be: `9 - 2 * row`. There is a fixed difference with `row * 4` and the number of
+hashes of 2. An expression could be `4 * row - 2`.
 
-The nested diamonds
+### The Reverse Pyramid
 
-First Quarter (6 ≤ n ≤ 7)
-* Leading hashes: [18 - 2n]
-* Spaces: [4n - 20]
-* Trailing hashes: [18 - 2n]
+```txt
+ ##############
+   ##########
+     ###### 
+       ##
+```
 
-Second Quarter (8 ≤ n ≤ 10)
-* Leading hashes: [11 - n]
-* Leading and trailing spaces: 3
-* Medium hashes: [2n - 12]
-* Trailing hashes: [11 - n]
+|Row|Spaces|Row * 2|Hashes|Row * -4|Difference
+|:-:|:----:|:------:|:----:|:-----:|:--------:
+|1|1|2|14|-4|18
+|2|3|4|10|-8|18
+|3|5|6|6|-12|18
+|4|7|8|2|-16|18
 
-Third Quarter (11 ≤ n ≤ 12)
-* Leading hashes: [n - 9]
-* Leading and trailing spaces: 3
-* Medium hashes: [28 - 2n]
-* Trailing hashes: [n - 9]
+There is a fixed difference of -1 in the sequence of spaces. A proposed
+expression can be: `2 * row - 1`. For the number of hashes, we can use the
+expression `18 - 4 * row`.
 
-Fourth Quarter (13 ≤ n ≤ 14)
-* Leading hashes: [2n - 22]
-* Medium spaces: [60 - 4n]
-* Trailing hashes: [2n - 22]
+### Nested diamonds
 
-The reverse pyramid expressions (16 <= n <= 20)
-* Leading spaces: [2n -31]
-* Hashes: [78 - 4n]
-* Trailing spaces: [2n - 31]
+```txt
+################
+######    ###### 
+####        ####
+###   ####   ###
+##   ######   ##
+#   ########   #
+##   ######   ##
+###   ####   ###
+####        ####
+######    ######
+################
+```
 
+Taking this structure as a whole is quite complex. A way of reduce it can be:
 
+Compute the first and last three rows this way:
 
-## Implementation Notes
-Each section has its own fixed loop as in the previous exercises. I have encapsulated the printing loops to compact the program and improve readability.
+```txt
+################
+######    ######
+####        ####
+####        ####
+######    ######
+################
+```
+
+The algebraic expressions for the figure are:
+
+* For the hashes of the first half: `10 - 2 * row`
+* For the hashes of the second half: `2 * row + 2`
+* For the spaces of the first half: `4 * row - 4`
+* For the spaces of the second half: `12 - 4 * row`
+
+I put the figures all together to get the following intermediate figure:
+
+```txt
+     ######
+   ##########
+ ##############
+################
+######    ######
+####        ####
+####        ####
+######    ######
+################
+ ##############
+   ##########
+     ######
+       ##
+```
+
+Finally we can tackle the rows in the middle:
+
+```txt
+###   ####   ###
+##   ######   ##
+#   ########   #
+##   ######   ##
+###   ####   ###
+```
+
+* For the hashes of the edges first half: `4 - row`
+* For the central hashes of the first half: `2 * row + 2`
+* For the central hashes of the secon half: `10 - 2 * row`
+* For the hashes of the edges second half: `row`
+* Spaces are constant at 3
