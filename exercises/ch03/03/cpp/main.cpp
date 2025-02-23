@@ -16,7 +16,7 @@ void arraySort(int intArray[], int ARRAY_SIZE) {
 bool arraySorted(int intArray[], int ARRAY_SIZE) {
     int start = 0, end = ARRAY_SIZE - 1;
     for(int i = start + 1; i <= end; i++) {
-        for (int j = i; j > start && intArray[j - 1] > intArray[j]; j--)
+	if (intArray[i-1] > intArray[i])
             return false;
     }
     return true;
@@ -31,3 +31,4 @@ int main() {
     cout << "\nIs the array now sorted?: " 
         << arraySorted(intArray, ARRAY_SIZE) << '\n';
 }
+
