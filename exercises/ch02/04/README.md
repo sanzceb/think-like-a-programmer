@@ -1,4 +1,4 @@
-# Exercise 2.3: [Output Patterns]
+# Exercise 2.4: [Output Patterns]
 
 ## Problem Statement
 
@@ -32,7 +32,7 @@ I have generated the following shape with AI
 
 ## Strategy
 
-Application the reduction technique, we can break down this huge shape into
+By applying the reduction technique, we can break down this huge shape into
 smaller, manageable shapes.
 
 ### The First Pyramid
@@ -53,7 +53,7 @@ Computation table:
 |3|3|-6|10|12|2
 |4|1|-8|14|16|2
 
-There is a fixed difference with row * -2 of 9 so an algebraic expression could
+There is a fixed difference with `row * -2` of 9 so an algebraic expression could
 be: `9 - 2 * row`. There is a fixed difference with `row * 4` and the number of
 hashes of 2. An expression could be `4 * row - 2`.
 
@@ -113,7 +113,7 @@ The algebraic expressions for the figure are:
 * For the spaces of the first half: `4 * row - 4`
 * For the spaces of the second half: `12 - 4 * row`
 
-I put the figures all together to get the following intermediate figure:
+I put all the figures together to get the following intermediate figure:
 
 ```txt
      ######
@@ -131,7 +131,7 @@ I put the figures all together to get the following intermediate figure:
        ##
 ```
 
-Finally we can tackle the rows in the middle:
+Finally, we can tackle the rows in the middle:
 
 ```txt
 ###   ####   ###
