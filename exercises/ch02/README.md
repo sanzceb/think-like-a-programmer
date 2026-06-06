@@ -32,5 +32,5 @@ import static java.lang.System.out;
 
 ## Problems 1-3: Output Patterns
 
-In this section will focus on the use of the output streams and reduction
+In this section the focus is on using output streams and reduction
 techniques to solve problems.

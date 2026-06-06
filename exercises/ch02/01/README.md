@@ -14,14 +14,14 @@ space, or an end-of-line, write a program that produces the following shape:
 
 ## Strategy
 
-In order to use the reduction techniques of the book I solve the folling
+In order to use the reduction techniques of the book I solved the following
 subproblems:
 
 * Print a line of 8 hashes
 * Print a rectangle of 8x4 hashes.
-* Apply 'Counting down by Counting up' problem technique to find the algebraic
+* Apply 'Count down by Counting up' problem technique to find the algebraic
 expression of the number of hashes.
-* Apply 'Counting down by Counting up' problem technique to find the algebraic
+* Apply 'Count down by Counting up' problem technique to find the algebraic
 expression of the number of spaces.
 
 ## Expression analysis
@@ -51,4 +51,4 @@ The number of leading spaces must be one unit less than the row count.
 |3|2|1|
 |4|3|1|
 
-So the expression is `row -1`.
+So the expression is `row - 1`.
